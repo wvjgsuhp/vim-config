@@ -1,5 +1,7 @@
 let g:python3_host_prog = $HOME . '/.config/nvim/env/bin/python3'
 
+set clipboard+=unnamedplus     " Yank without explicit registration
+
 " Statusline theme
 let g:lightline = {
       \ 'colorscheme': 'one',

@@ -105,10 +105,10 @@ xnoremap P :call <SID>visual_paste('P')<CR>
 " ----
 
 " Macros
-if get(g:, 'enable_universal_quit_mapping', 1)
-	nnoremap Q q
-	nnoremap gQ @q
-endif
+" if get(g:, 'enable_universal_quit_mapping', 1)
+" 	nnoremap Q q
+" 	nnoremap gQ @q
+" endif
 
 " Start new line from any cursor position in insert-mode
 inoremap <S-Return> <C-o>o
@@ -308,12 +308,12 @@ endif
 " -------------------------
 
 " Ultimatus Quitos
-if get(g:, 'enable_universal_quit_mapping', 1)
-	autocmd user_events BufWinEnter,VimEnter *
-		\  if ! maparg('q', 'n')
-		\|   nnoremap <buffer> q <cmd>quit<CR>
-		\| endif
-endif
+" if get(g:, 'enable_universal_quit_mapping', 1)
+" 	autocmd user_events BufWinEnter,VimEnter *
+" 		\  if ! maparg('q', 'n')
+" 		\|   nnoremap <buffer> q <cmd>quit<CR>
+" 		\| endif
+" endif
 
 " Switch with adjacent window
 nnoremap <C-x> <C-w>x

@@ -32,5 +32,9 @@ noremap <Leader>0 :tablast<cr>
 noremap <Leader>h ^
 noremap <Leader>l $
 
+" Open terminal
+noremap <Leader>z :split<cr><bar>:terminal<cr>i
+noremap <Leader>ez :TmuxNavigateDown<cr>:TmuxNavigateLeft<cr>i
+
 " Discard all changes
 noremap <Leader>q :e!<cr>

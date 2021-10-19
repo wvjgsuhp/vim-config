@@ -26,15 +26,19 @@ noremap <Leader>6 6gt
 noremap <Leader>7 7gt
 noremap <Leader>8 8gt
 noremap <Leader>9 9gt
-noremap <Leader>0 :tablast<cr>
+noremap <Leader>0 <cmd>tablast<cr>
 
 " Jump to the beginning/end of a line
 noremap <Leader>h ^
 noremap <Leader>l $
 
 " Open terminal
-noremap <Leader>z :split<cr><bar>:terminal<cr>i
-noremap <Leader>ez :TmuxNavigateDown<cr>:TmuxNavigateLeft<cr>i
+noremap <Leader>zj <cmd>split<cr><bar>:terminal<cr>i
+noremap <Leader>zl <cmd>vsplit<cr><bar>:terminal<cr>i
+noremap <Leader>ez <cmd>TmuxNavigateDown<cr>:TmuxNavigateLeft<cr>i
+
+" Preview markdown
+noremap <Leader>mp <cmd>term glow %<cr>
 
 " Discard all changes
-noremap <Leader>q :e!<cr>
+noremap <Leader>q <cmd>e!<cr>

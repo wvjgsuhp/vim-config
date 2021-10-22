@@ -1,1 +1,6 @@
+- repo: tpope/vim-commentary
+- repo: tpope/vim-repeat
+- repo: tpope/vim-surround
 - repo: itchyny/lightline.vim
+
+- { repo: tyru/caw.vim, if: 0 }

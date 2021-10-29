@@ -12,6 +12,9 @@ set showcmd
 set number                     " Show current line number
 set relativenumber             " Show relative line numbers
 
+" fzf x ag
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path="0;33"', <bang>0)
+
 " Mapping
 " Go from terminal to normal mode
 tnoremap <Esc> <C-\><C-n>
@@ -33,12 +36,34 @@ noremap <Leader>h ^
 noremap <Leader>l $
 
 " Open terminal
-noremap <Leader>zj <cmd>split<cr><bar>:terminal<cr>i
-noremap <Leader>zl <cmd>vsplit<cr><bar>:terminal<cr>i
-noremap <Leader>ez <cmd>TmuxNavigateDown<cr>:TmuxNavigateLeft<cr>i
+noremap <Leader>z <cmd>terminal<cr>i
+noremap <Leader>zj <cmd>split<cr><bar><cmd>terminal<cr>13<c-w>_i
+noremap <Leader>zl <cmd>vsplit<cr><bar><cmd>terminal<cr>i
+noremap <Leader>ez <cmd>TmuxNavigateDown<cr><cmd>TmuxNavigateLeft<cr>i
 
 " Preview markdown
 noremap <Leader>mp <cmd>term glow %<cr>
 
 " Discard all changes
 noremap <Leader>q <cmd>e!<cr>
+
+" Open previous file
+noremap <Leader>b <c-^><cr>
+
+" Fix incorrect highlight
+noremap <Leader>ffs <cmd>colorscheme github<cr>
+
+" Formatting
+augroup formatting 
+  autocmd!
+	autocmd BufWritePre *.js Neoformat
+	autocmd BufWritePre *.jsx Neoformat
+	autocmd BufWritePre *.ts Neoformat
+	autocmd BufWritePre *.tsx Neoformat
+	autocmd BufWritePre *.json Neoformat
+augroup END
+
+" Yank filename
+nnoremap <Leader>yfn :let @+=expand("%")<CR>:echo 'Yanked filename'<CR>
+nnoremap <Leader>yrp :let @+=expand("%:~:.")<CR>:echo 'Yanked relative path'<CR>
+nnoremap <Leader>yap :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>

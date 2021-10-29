@@ -1,6 +1,11 @@
+- repo: itchyny/lightline.vim
+- repo: junegunn/fzf.vim
+- { repo: junegunn/fzf, { do: { -> fzf#install() } } }
 - repo: tpope/vim-commentary
+- repo: tpope/vim-fugitive
 - repo: tpope/vim-repeat
 - repo: tpope/vim-surround
-- repo: itchyny/lightline.vim
 
+# not in use
+- { repo: lambdalisue/gina.vim, if: 0 }
 - { repo: tyru/caw.vim, if: 0 }

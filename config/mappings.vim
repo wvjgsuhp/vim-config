@@ -89,8 +89,8 @@ nnoremap zh z4h
 nnoremap Y y$
 
 " Yank buffer's relative/absolute path to clipboard
-nnoremap <Leader>y :let @+=expand("%:~:.")<CR>:echo 'Yanked relative path'<CR>
-nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
+" nnoremap <Leader>y :let @+=expand("%:~:.")<CR>:echo 'Yanked relative path'<CR>
+" nnoremap <Leader>Y :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
 
 " Cut & paste without pushing to register
 " xnoremap p  "0p

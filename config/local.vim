@@ -54,13 +54,19 @@ noremap <Leader>b <c-^><cr>
 noremap <Leader>ffs <cmd>colorscheme github<cr>
 
 " Formatting
-augroup formatting 
+let g:neoformat_python_autopep8 = {
+            \ 'exe': 'autopep8',
+            \ 'args': ['--max-line-length=80', '--experimental'],
+            \ }
+
+augroup formatting
   autocmd!
 	autocmd BufWritePre *.js Neoformat
 	autocmd BufWritePre *.jsx Neoformat
 	autocmd BufWritePre *.ts Neoformat
 	autocmd BufWritePre *.tsx Neoformat
 	autocmd BufWritePre *.json Neoformat
+	autocmd BufWritePre *.py Neoformat
 augroup END
 
 " Yank filename

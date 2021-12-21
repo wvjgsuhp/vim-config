@@ -1,4 +1,5 @@
 - repo: itchyny/lightline.vim
+- repo: neovim/nvim-lspconfig
 - repo: junegunn/fzf.vim
 - { repo: junegunn/fzf, { do: { -> fzf#install() } } }
 - repo: tpope/vim-commentary

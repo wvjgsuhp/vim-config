@@ -11,6 +11,7 @@ set clipboard+=unnamedplus     " Yank without explicit registration
 set showcmd
 set number                     " Show current line number
 set relativenumber             " Show relative line numbers
+set tabstop=2 shiftwidth=2 expandtab
 
 " fzf x ag
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path="0;33"', <bang>0)
@@ -53,7 +54,16 @@ noremap <Leader>b <c-^><cr>
 " Fix incorrect highlight
 noremap <Leader>ffs <cmd>colorscheme github<cr>
 
-" Formatting
+" Formatting, lsp
+lua << EOF
+require'lspconfig'.sqlls.setup{}
+EOF
+
+let g:neoformat_sql_sqlformat = {
+	    \ 'exe': 'sqlformat',
+	    \ 'args': ['--keywords=upper']
+	    \ }
+
 let g:neoformat_python_autopep8 = {
             \ 'exe': 'autopep8',
             \ 'args': ['--max-line-length=80', '--experimental'],
@@ -67,6 +77,8 @@ augroup formatting
 	autocmd BufWritePre *.tsx Neoformat
 	autocmd BufWritePre *.json Neoformat
 	autocmd BufWritePre *.py Neoformat
+	autocmd BufWritePre *.md Neoformat
+	autocmd BufWritePre *.sql Neoformat
 augroup END
 
 " Yank filename

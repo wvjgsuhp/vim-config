@@ -5,9 +5,7 @@
 - repo: tpope/vim-fugitive
 - repo: tpope/vim-repeat
 - repo: tpope/vim-surround
-- repo: williamboman/nvim-lsp-installer
 
 # not in use
 - { repo: lambdalisue/gina.vim, if: 0 }
 - { repo: tyru/caw.vim, if: 0 }
-- { repo: kabouzeid/nvim-lspinstall, if: 0 }

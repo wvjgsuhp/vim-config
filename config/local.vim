@@ -16,7 +16,7 @@ set relativenumber             " Show relative line numbers
 set tabstop=2 shiftwidth=2 expandtab
 
 " fzf x ag
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--color-path="0;33"', <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
 
 " Mapping
 " Go from terminal to normal mode
@@ -55,25 +55,6 @@ noremap <Leader>b <c-^><cr>
 
 " Fix incorrect highlight
 noremap <Leader>ffs <cmd>colorscheme github<cr>
-
-lua << EOF
-local lsp_installer = require("nvim-lsp-installer")
-
--- Register a handler that will be called for all installed servers.
--- Alternatively, you may also register handlers on specific server instances instead (see example below).
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
-
-    -- (optional) Customize the options passed to the server
-    -- if server.name == "tsserver" then
-    --     opts.root_dir = function() ... end
-    -- end
-
-    -- This setup() function is exactly the same as lspconfig's setup function.
-    -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    server:setup(opts)
-end)
-EOF
 
 let g:neoformat_sql_sqlformat = {
 	    \ 'exe': 'sqlformat',

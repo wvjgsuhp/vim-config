@@ -18,6 +18,10 @@ set tabstop=2 shiftwidth=2 expandtab
 " fzf x ag
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
 
+" Save sessions
+" autocmd BufWinLeave *.* mkview
+" autocmd BufWinEnter *.* silent loadview 
+
 " Mapping
 " Go from terminal to normal mode
 tnoremap <Esc> <C-\><C-n>
@@ -56,6 +60,11 @@ noremap <Leader>b <c-^><cr>
 " Fix incorrect highlight
 noremap <Leader>ffs <cmd>colorscheme github<cr>
 
+" Formatting
+" lua << EOF
+" require'lspconfig'.sqlls.setup{}
+" EOF
+
 let g:neoformat_sql_sqlformat = {
 	    \ 'exe': 'sqlformat',
 	    \ 'args': ['--keywords=upper']
@@ -82,3 +91,6 @@ augroup END
 nnoremap <Leader>yfn :let @+=expand("%")<CR>:echo 'Yanked filename'<CR>
 nnoremap <Leader>yrp :let @+=expand("%:~:.")<CR>:echo 'Yanked relative path'<CR>
 nnoremap <Leader>yap :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
+
+" Refactor
+" nnoremap <Leader>rn ,rn

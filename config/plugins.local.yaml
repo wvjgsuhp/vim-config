@@ -7,5 +7,5 @@
 - repo: tpope/vim-surround
 
 # not in use
-- { repo: lambdalisue/gina.vim, if: 0 }
+- { repo: lambdalisue/fern.vim, if: 0 }
 - { repo: tyru/caw.vim, if: 0 }

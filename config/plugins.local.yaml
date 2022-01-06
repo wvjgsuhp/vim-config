@@ -1,6 +1,6 @@
 - repo: itchyny/lightline.vim
-- repo: junegunn/fzf.vim
 - { repo: junegunn/fzf, { do: { -> fzf#install() } } }
+- repo: junegunn/fzf.vim
 - repo: tpope/vim-commentary
 - repo: tpope/vim-fugitive
 - repo: tpope/vim-repeat

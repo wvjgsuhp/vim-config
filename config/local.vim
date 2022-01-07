@@ -18,6 +18,7 @@ set tabstop=2 shiftwidth=2 expandtab
 " fzf x ag
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+set rtp+=/usr/local/opt/fzf
 
 " Save sessions
 " autocmd BufWinLeave *.* mkview
@@ -26,6 +27,9 @@ set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 " Mapping
 " Go from terminal to normal mode
 tnoremap <Esc> <C-\><C-n>
+
+" Paste in a word
+noremap <Leader>piw viwp
 
 " Go to tab by number
 noremap <Leader>1 1gt

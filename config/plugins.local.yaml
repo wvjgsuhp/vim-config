@@ -1,5 +1,6 @@
 - repo: itchyny/lightline.vim
 - repo: junegunn/fzf.vim
+- repo: mzlogin/vim-markdown-toc
 - repo: tpope/vim-commentary
 - repo: tpope/vim-fugitive
 - repo: tpope/vim-repeat

@@ -2,10 +2,13 @@ let g:python3_host_prog = $HOME . '/.config/nvim/env/bin/python3'
 
 set clipboard+=unnamedplus     " Yank without explicit registration
 
-" Statusline theme
-let g:lightline = {
-      \ 'colorscheme': 'one',
-      \ }
+" Statusline
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = '|'
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
 
 let mapleader = ' '
 

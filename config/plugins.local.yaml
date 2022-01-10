@@ -1,4 +1,5 @@
-- repo: itchyny/lightline.vim
+# - repo: itchyny/lightline.vim
+- repo: vim-airline/vim-airline
 - repo: junegunn/fzf.vim
 - repo: mzlogin/vim-markdown-toc
 - repo: tpope/vim-commentary

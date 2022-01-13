@@ -9,6 +9,16 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_left_sep = ' '
 let g:airline_right_sep = ' '
+let g:airline#extensions#branch#displayed_head_limit = 8
+let g:airline_detect_spell = 0
+let g:airline#extensions#default#section_truncate_width = {
+      \ 'b': 79,
+      \ 'x': 60,
+      \ 'y': 88,
+      \ 'z': 45,
+      \ 'warning': 80,
+      \ 'error': 80,
+      \ }
 
 let mapleader = ' '
 

@@ -36,10 +36,6 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 set rtp+=/usr/local/opt/fzf
 
-" Save sessions
-" autocmd BufWinLeave *.* mkview
-" autocmd BufWinEnter *.* silent loadview 
-
 " Mapping
 " Go from terminal to normal mode
 tnoremap <Esc> <C-\><C-n>
@@ -82,10 +78,6 @@ noremap <Leader>b <c-^><cr>
 noremap <Leader>ffs <cmd>colorscheme github<cr>
 
 " Formatting
-" lua << EOF
-" require'lspconfig'.sqlls.setup{}
-" EOF
-
 let g:neoformat_sql_sqlformat = {
 	    \ 'exe': 'sqlformat',
 	    \ 'args': ['--keywords=upper']

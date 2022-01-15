@@ -9,4 +9,5 @@
 
 # not in use
 - { repo: lambdalisue/fern.vim, if: 0 }
+- { repo: nvim-treesitter/nvim-treesitter, if: 0 }
 - { repo: tyru/caw.vim, if: 0 }

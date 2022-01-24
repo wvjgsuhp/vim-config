@@ -65,7 +65,7 @@ augroup END
 tnoremap <Esc> <C-\><C-n>
 
 " Paste in a word
-noremap <Leader>piw viwp
+nnoremap <Leader>piw viwp
 
 " Go to tab by number
 noremap <Leader>1 1gt
@@ -95,8 +95,8 @@ noremap <Leader>mp <cmd>term glow %<cr>
 " Discard all changes
 noremap <Leader>q <cmd>e!<cr>
 
-" Open previous file
-noremap <Leader>b <c-^><cr>
+" Open previous buffer
+noremap <Leader>bb <c-^><cr>
 
 " Fix incorrect highlight
 noremap <Leader>ffs <cmd>colorscheme github<cr>
@@ -107,4 +107,7 @@ nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR><cmd>echo 'Yanked relative p
 nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR><cmd>echo 'Yanked absolute path'<CR>
 
 " Delete current file
-nnoremap <Leader>rm <cmd>call delete(expand('%')) \| bd!<cr>
+nnoremap <Leader>rm <cmd>call delete(expand('%'))<bar>bd!<cr>
+
+" Close current buffer
+nnoremap <Leader>bd <cmd>b#<bar>bd#<CR>

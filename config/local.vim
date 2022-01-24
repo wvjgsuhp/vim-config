@@ -36,6 +36,30 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 set rtp+=/usr/local/opt/fzf
 
+" Formatting
+let g:neoformat_sql_sqlformat = {
+	    \ 'exe': 'sqlformat',
+	    \ 'args': ['--keywords=upper']
+	    \ }
+
+let g:neoformat_python_autopep8 = {
+            \ 'exe': 'autopep8',
+            \ 'args': ['--max-line-length=80', '--experimental'],
+            \ }
+
+augroup formatting
+  autocmd!
+	autocmd BufWritePre *.js Neoformat
+	autocmd BufWritePre *.jsx Neoformat
+	autocmd BufWritePre *.ts Neoformat
+	autocmd BufWritePre *.tsx Neoformat
+	autocmd BufWritePre *.json Neoformat
+	autocmd BufWritePre *.py Neoformat
+	autocmd BufWritePre *.md Neoformat
+	autocmd BufWritePre *.sql Neoformat
+augroup END
+
+
 " Mapping
 " Go from terminal to normal mode
 tnoremap <Esc> <C-\><C-n>
@@ -77,33 +101,10 @@ noremap <Leader>b <c-^><cr>
 " Fix incorrect highlight
 noremap <Leader>ffs <cmd>colorscheme github<cr>
 
-" Formatting
-let g:neoformat_sql_sqlformat = {
-	    \ 'exe': 'sqlformat',
-	    \ 'args': ['--keywords=upper']
-	    \ }
-
-let g:neoformat_python_autopep8 = {
-            \ 'exe': 'autopep8',
-            \ 'args': ['--max-line-length=80', '--experimental'],
-            \ }
-
-augroup formatting
-  autocmd!
-	autocmd BufWritePre *.js Neoformat
-	autocmd BufWritePre *.jsx Neoformat
-	autocmd BufWritePre *.ts Neoformat
-	autocmd BufWritePre *.tsx Neoformat
-	autocmd BufWritePre *.json Neoformat
-	autocmd BufWritePre *.py Neoformat
-	autocmd BufWritePre *.md Neoformat
-	autocmd BufWritePre *.sql Neoformat
-augroup END
-
 " Yank filename
-nnoremap <Leader>yfn :let @+=expand("%")<CR>:echo 'Yanked filename'<CR>
-nnoremap <Leader>yrp :let @+=expand("%:~:.")<CR>:echo 'Yanked relative path'<CR>
-nnoremap <Leader>yap :let @+=expand("%:p")<CR>:echo 'Yanked absolute path'<CR>
+nnoremap <Leader>yfn <cmd>let @+=expand("%")<CR><cmd>echo 'Yanked filename'<CR>
+nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR><cmd>echo 'Yanked relative path'<CR>
+nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR><cmd>echo 'Yanked absolute path'<CR>
 
-" Refactor
-" nnoremap <Leader>rn ,rn
+" Delete current file
+nnoremap <Leader>rm <cmd>call delete(expand('%')) \| bd!<cr>

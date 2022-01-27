@@ -9,6 +9,7 @@ let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_left_sep = ' '
 let g:airline_right_sep = ' '
+let g:airline_section_z = airline#section#create([g:airline_symbols.colnr, '%v'])
 let g:airline#extensions#branch#displayed_head_limit = 8
 let g:airline_detect_spell = 0
 let g:airline#extensions#default#section_truncate_width = {
@@ -111,3 +112,6 @@ nnoremap <Leader>rm <cmd>call delete(expand('%'))<bar>bd!<cr>
 
 " Close current buffer
 nnoremap <Leader>bd <cmd>b#<bar>bd#<CR>
+
+" Trouble
+nnoremap <Leader>xd <cmd>Trouble document_diagnostics<cr>

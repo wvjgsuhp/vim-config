@@ -86,7 +86,7 @@ augroup END
 tnoremap <Esc> <C-\><C-n>
 
 " Paste in a word
-nnoremap <Leader>piw viwp
+nnoremap <Leader>piw viwpyiw
 
 " Go to tab by number
 noremap <Leader>1 1gt
@@ -135,3 +135,4 @@ nnoremap <Leader>bd <cmd>b#<bar>bd#<CR>
 
 " Trouble
 nnoremap <Leader>xd <cmd>Trouble document_diagnostics<cr>
+nnoremap <Leader>xw <cmd>Trouble workspace_diagnostics<cr>

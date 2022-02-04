@@ -136,3 +136,7 @@ nnoremap <Leader>bd <cmd>b#<bar>bd#<CR>
 " Trouble
 nnoremap <Leader>xd <cmd>Trouble document_diagnostics<cr>
 nnoremap <Leader>xw <cmd>Trouble workspace_diagnostics<cr>
+
+" Git
+nnoremap <Leader>gdh <cmd>diffget //2<cr>
+nnoremap <Leader>gdl <cmd>diffget //3<cr>

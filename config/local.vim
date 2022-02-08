@@ -122,10 +122,11 @@ noremap <Leader>bb <c-^><cr>
 " Fix incorrect highlight
 noremap <Leader>ffs <cmd>colorscheme github<cr>
 
-" Yank filename
+" Yank
 nnoremap <Leader>yfn <cmd>let @+=expand("%")<CR><cmd>echo 'Yanked filename'<CR>
 nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR><cmd>echo 'Yanked relative path'<CR>
 nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR><cmd>echo 'Yanked absolute path'<CR>
+nnoremap <Leader>yaa ggyG''
 
 " Delete current file
 nnoremap <Leader>rm <cmd>call delete(expand('%'))<bar>bd!<cr>

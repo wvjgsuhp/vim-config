@@ -85,8 +85,9 @@ augroup END
 " Go from terminal to normal mode
 tnoremap <Esc> <C-\><C-n>
 
-" Paste in a word
+" Paste
 nnoremap <Leader>piw viwpyiw
+nnoremap <Leader>pa ggVGp
 
 " Go to tab by number
 noremap <Leader>1 1gt
@@ -127,6 +128,9 @@ nnoremap <Leader>yfn <cmd>let @+=expand("%")<CR><cmd>echo 'Yanked filename'<CR>
 nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR><cmd>echo 'Yanked relative path'<CR>
 nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR><cmd>echo 'Yanked absolute path'<CR>
 nnoremap <Leader>yaa ggyG''
+
+" Delete
+nnoremap <Leader>dc j<cmd>foldclose<cr>kd1j
 
 " Delete current file
 nnoremap <Leader>rm <cmd>call delete(expand('%'))<bar>bd!<cr>

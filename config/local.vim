@@ -148,3 +148,7 @@ nnoremap <Leader>gdl <cmd>diffget //3<cr>
 " Search
 nnoremap <Leader>agp :Ag <C-r>0<cr>
 nnoremap <Leader>agiw yiw:Ag <C-r>0<cr>
+
+" Find
+nnoremap <Leader>fp /<C-r>0<cr>
+nnoremap <Leader>fiw yiw/<C-r>0<cr>

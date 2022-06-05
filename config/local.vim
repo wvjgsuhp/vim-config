@@ -77,6 +77,7 @@ augroup formatting
 	autocmd BufWritePre *.py Neoformat
 	autocmd BufWritePre *.md Neoformat
 	autocmd BufWritePre *.sql Neoformat
+	autocmd BufWritePre *.rs Neoformat
 augroup END
 
 
@@ -101,7 +102,7 @@ noremap <Leader>9 9gt
 noremap <Leader>0 <cmd>tablast<cr>
 
 " Jump to the beginning/end of a line
-noremap <Leader>h ^
+noremap <Leader>hh ^
 noremap <Leader>l $
 
 " Open terminal

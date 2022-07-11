@@ -8,7 +8,6 @@
 -- Buffer attached
 local on_attach = function(client, bufnr)
 	local function map_buf(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
-	-- local function opt_buf(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
 	-- Keyboard mappings
 	local opts = { noremap = true, silent = true }
@@ -16,7 +15,7 @@ local on_attach = function(client, bufnr)
 
 	-- Short-circuit for Helm template files
 	if vim.bo[bufnr].buftype ~= '' or vim.bo[bufnr].filetype == 'helm' then
-		require('user').diagnostic.disable(0)
+		require('user').diagnostic.disable(bufnr)
 		return
 	end
 
@@ -30,10 +29,20 @@ local on_attach = function(client, bufnr)
 	map_buf('n', ',wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
 	map_buf('n', ',wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
 	map_buf('n', ',rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
-	map_buf('n', '[d', '<cmd>lua require("user").diagnostic.goto_prev()<CR>', opts)
-	map_buf('n', ']d', '<cmd>lua require("user").diagnostic.goto_next()<CR>', opts)
 	map_buf('n', '<Leader>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-	map_buf('n', '<Leader>ce', '<cmd>lua require("user").diagnostic.show_line_diagnostics()<CR>', opts)
+	map_buf('n', '<Leader>ce', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+
+	-- Set some keybinds conditional on server capabilities
+	if client.supports_method('textDocument/formatting') then
+		if vim.fn.has('nvim-0.8') == 1 then
+			map_buf('n', ',f', '<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<CR>', opts)
+		else
+			map_buf('n', ',f', '<cmd>lua vim.lsp.buf.formatting(nil, 2000)<CR>', opts)
+		end
+	end
+	if client.supports_method('textDocument/rangeFormatting') then
+		map_buf('x', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
+	end
 
 	-- lspsaga.nvim
 	-- See https://github.com/glepnir/lspsaga.nvim
@@ -57,23 +66,12 @@ local on_attach = function(client, bufnr)
 
 	if client.config.flags then
 		client.config.flags.allow_incremental_sync = true
-		client.config.flags.debounce_text_changes  = 100
+		-- client.config.flags.debounce_text_changes  = vim.opt.updatetime:get()
 	end
 
-	-- Set some keybinds conditional on server capabilities
-	if client.resolved_capabilities.document_formatting then
-		map_buf('n', ',f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
-	end
-	if client.resolved_capabilities.document_range_formatting then
-		map_buf('x', ',f', '<cmd>lua vim.lsp.buf.range_formatting()<CR>', opts)
-	end
-
-	-- Set autocommands conditional on server_capabilities
-	if client.resolved_capabilities.document_highlight then
+	-- Set autocommands conditional on server capabilities
+	if client.supports_method('textDocument/documentHighlight') then
 		vim.api.nvim_exec([[
-			highlight! LspReferenceRead ctermbg=237 guibg=#3D3741
-			highlight! LspReferenceText ctermbg=237 guibg=#373B41
-			highlight! LspReferenceWrite ctermbg=237 guibg=#374137
 			augroup lsp_document_highlight
 				autocmd! * <buffer>
 				autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
@@ -83,73 +81,13 @@ local on_attach = function(client, bufnr)
 	end
 end
 
--- Diagnostics signs and highlights
---   Error:   ✘
---   Warn:  ⚠ 
---   Hint:  
---   Info:   ⁱ
-local signs = { Error = '✘', Warn = '', Hint = '', Info = 'ⁱ'}
-for type, icon in pairs(signs) do
-	local hl = 'DiagnosticSign' .. type
-	vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
-end
-
--- Setup CompletionItemKind symbols, see lua/lsp_kind.lua
--- require('lsp_kind').init()
-
--- Configure LSP Handlers
--- ---
-
--- Configure diagnostics publish settings
-vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
-	vim.lsp.diagnostic.on_publish_diagnostics, {
-		signs = true,
-		underline = false,
-		update_in_insert = false,
-		virtual_text = {
-			spacing = 4,
-			-- prefix = '',
-		}
-	}
-)
-
--- Configure help hover (normal K) handler
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-	vim.lsp.handlers.hover, { border = 'rounded' }
-)
-
--- Configure signature help (,s) handler
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
-	vim.lsp.handlers.signature_help, { border = 'rounded' }
-)
-
 -- Combine base config for each server and merge user-defined settings.
 local function make_config(server_name)
 	-- Setup base config for each server.
 	local c = {}
 	c.on_attach = on_attach
-	c.capabilities = vim.lsp.protocol.make_client_capabilities()
-	c.capabilities = require('cmp_nvim_lsp').update_capabilities(c.capabilities)
-	c.flags = {
-		debounce_text_changes = 150,
-	}
-
-	-- cmp_nvim_lsp enables following options:
-	--   completionItem = {
-	--     commitCharactersSupport = true,
-	--     deprecatedSupport = true,
-	--     documentationFormat = { "markdown", "plaintext" },
-	--     insertReplaceSupport = true,
-	--     labelDetailsSupport = true,
-	--     preselectSupport = true,
-	--     resolveSupport = {
-	--       properties = { "documentation", "detail", "additionalTextEdits" }
-	--     },
-	--     snippetSupport = true,
-	--     tagSupport = {
-	--       valueSet = { 1 }
-	--     }
-	--   }
+	local cap = vim.lsp.protocol.make_client_capabilities()
+	c.capabilities = require('cmp_nvim_lsp').update_capabilities(cap)
 
 	-- Merge user-defined lsp settings.
 	-- These can be overridden locally by lua/lsp-local/<server_name>.lua
@@ -167,25 +105,86 @@ end
 
 -- main
 
-if vim.fn.has('vim_starting') then
+local function setup()
+	-- Config
+	vim.diagnostic.config({
+		virtual_text = true,
+		signs = true,
+		underline = true,
+		update_in_insert = false,
+		severity_sort = true,
+	})
+
+	-- Diagnostics signs and highlights
+	--   Error:   ✘
+	--   Warn:  ⚠  
+	--   Hint:  
+	--   Info:   ⁱ
+	local signs = { Error = '✘', Warn = '', Hint = '', Info = 'ⁱ'}
+	for type, icon in pairs(signs) do
+		local hl = 'DiagnosticSign' .. type
+		vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+	end
+
+	-- Setup CompletionItemKind symbols, see lua/lsp_kind.lua
+	-- require('lsp_kind').init()
+
+	-- Configure LSP Handlers
+	-- ---
+
+	vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+		vim.lsp.diagnostic.on_publish_diagnostics, {
+			virtual_text = {
+				-- https://github.com/neovim/nvim-lspconfig/wiki/UI-Customization#show-source-in-diagnostics-neovim-06-only
+				source = 'if_many',
+				prefix = '●',
+			},
+		})
+
+	-- Configure diagnostics publish settings
+	-- vim.lsp.handlers['textDocument/publishDiagnostics'] = vim.lsp.with(
+	-- 	vim.lsp.diagnostic.on_publish_diagnostics, {
+	-- 		signs = true,
+	-- 		underline = true,
+	-- 		update_in_insert = false,
+	-- 		severity_sort = true,
+	-- 		virtual_text = {
+	-- 			spacing = 4,
+	-- 			-- prefix = '',
+	-- 		}
+	-- 	}
+	-- )
+
+	-- Configure help hover (normal K) handler
+	vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+		vim.lsp.handlers.hover, { border = 'rounded' }
+	)
+
+	-- Configure signature help (,s) handler
+	vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+		vim.lsp.handlers.signature_help, { border = 'rounded' }
+	)
+
 	-- Setup language servers using nvim-lsp-installer
 	-- See https://github.com/williamboman/nvim-lsp-installer
 	local lsp_installer = require('nvim-lsp-installer')
+	lsp_installer.setup()
 
-	lsp_installer.on_server_ready(function(server)
-		local opts = make_config(server.name)
-		server:setup(opts)
-		vim.cmd [[ do User LspAttachBuffers ]]
-	end)
+	-- Setup language servers using nvim-lspconfig
+	local lspconfig = require('lspconfig')
+	for _, ls in pairs(lsp_installer.get_installed_servers()) do
+		local opts = make_config(ls.name)
+		lspconfig[ls.name].setup(opts)
+	end
 
 	-- global custom location-list diagnostics window toggle.
 	local args = { noremap = true, silent = true }
-	vim.api.nvim_set_keymap(
-		'n',
-		'<Leader>a',
-		'<cmd>lua require("user").diagnostic.publish_loclist(true)<CR>',
-		args
-	)
+	local function nmap(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, args) end
+	nmap('<Leader>a', '<cmd>lua require("user").diagnostic.publish_loclist(true)<CR>')
+	nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>')
+	nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<CR>')
+
+	require('nvim-lightbulb').setup({ ignore = {'null-ls'} })
 
 	vim.api.nvim_exec([[
 		augroup user_lspconfig
@@ -194,9 +193,13 @@ if vim.fn.has('vim_starting') then
 			" See https://github.com/kosayoda/nvim-lightbulb
 			autocmd CursorHold,CursorHoldI * lua require'nvim-lightbulb'.update_lightbulb()
 			" Automatic diagnostic hover
-			" autocmd CursorHold * lua require("user").diagnostic.show_line_diagnostics({ focusable=false })
+			" autocmd CursorHold * lua require("user").diagnostic.open_float({ focusable=false })
 		augroup END
 	]], false)
 end
 
+return {
+	setup = setup,
+	on_attach = on_attach,
+}
 -- vim: set ts=2 sw=2 tw=80 noet :

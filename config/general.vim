@@ -30,8 +30,8 @@ else
 endif
 
 " What to save for views and sessions
-set viewoptions=folds,cursor,curdir
-set sessionoptions=curdir,help,tabpages,winsize
+set viewoptions=cursor,curdir
+set sessionoptions=blank,curdir,help,terminal,tabpages
 
 " Fast cliboard setup for macOS
 if has('mac') && executable('pbcopy') && has('vim_starting')
@@ -200,7 +200,7 @@ endif
 " Command-line completion
 if has('wildmenu')
 	set wildignorecase
-	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out,*~,%*
+	set wildignore+=.git,.hg,.svn,.stversions,*.pyc,*.spl,*.o,*.out
 	set wildignore+=*.jpg,*.jpeg,*.png,*.gif,*.zip,**/tmp/**,*.DS_Store
 	set wildignore+=**/node_modules/**,**/bower_modules/**,*/.sass-cache/*
 	set wildignore+=__pycache__,*.egg-info,.pytest_cache,.mypy_cache/**
@@ -220,9 +220,9 @@ set list                " Show hidden characters
 set showtabline=2       " Always show the tabs line
 set helpheight=0        " Disable help window resizing
 set winwidth=30         " Minimum width for active window
-set winminwidth=10      " Minimum width for inactive windows
-" set winheight=1         " Minimum height for active window
-" set winminheight=0      " Minimum height for inactive window
+set winminwidth=1       " Minimum width for inactive windows
+set winheight=1         " Minimum height for active window
+set winminheight=1      " Minimum height for inactive window
 
 set noshowcmd           " Don't show command in status line
 set cmdheight=1         " Height of the command line
@@ -282,11 +282,11 @@ augroup user_general_settings
 		\ | endif
 
 	" Reload vim configuration automatically on-save
-	autocmd BufWritePost $VIM_PATH/{*.vim,*.yaml,vimrc} nested
+	autocmd BufWritePost $VIM_PATH/{*.vim,*.yaml,vimrc} ++nested
 		\ source $MYVIMRC | redraw
 
 	" Automatically set read-only for files being edited elsewhere
-	autocmd SwapExists * nested let v:swapchoice = 'o'
+	autocmd SwapExists * ++nested let v:swapchoice = 'o'
 
 	" Update diff comparison once leaving insert mode
 	autocmd InsertLeave * if &l:diff | diffupdate | endif
@@ -314,14 +314,14 @@ augroup user_general_settings
 	endif
 
 	" Update filetype on save if empty
-	autocmd BufWritePost * nested
+	autocmd BufWritePost * ++nested
 		\ if &l:filetype ==# '' || exists('b:ftdetect')
 		\ |   unlet! b:ftdetect
 		\ |   filetype detect
 		\ | endif
 
 	" Reload Vim script automatically if setlocal autoread
-	autocmd BufWritePost,FileWritePost *.vim nested
+	autocmd BufWritePost,FileWritePost *.vim ++nested
 		\ if &l:autoread > 0 | source <afile> |
 		\   echo 'source ' . bufname('%') |
 		\ endif
@@ -353,11 +353,7 @@ augroup user_plugin_filetype
 
 	autocmd FileType apache,html setlocal path+=./;/
 
-	autocmd FileType helm setlocal expandtab
-
 	autocmd FileType crontab setlocal nobackup nowritebackup
-
-	autocmd FileType yaml setlocal expandtab tabstop=2 shiftwidth=2
 
 	autocmd FileType gitcommit setlocal spell
 
@@ -365,11 +361,7 @@ augroup user_plugin_filetype
 
 	autocmd FileType php setlocal matchpairs-=<:> iskeyword+=\\
 
-	autocmd FileType python
-		\ setlocal expandtab nosmartindent tabstop=4 shiftwidth=4
-
-	autocmd FileType markdown
-		\ setlocal expandtab spell formatoptions=tcroqn2 comments=n:>
+	autocmd FileType markdown setlocal spell formatoptions=tcroqn2 comments=n:>
 
 augroup END
 
@@ -410,12 +402,6 @@ endfunction
 augroup user_theme
 	autocmd!
 	autocmd ColorScheme * call s:theme_autoload()
-
-	if has('patch-8.0.1781') || has('nvim-0.3.2')
-		autocmd ColorSchemePre * if exists('g:colors_name')
-			\| highlight clear
-			\| endif
-	endif
 augroup END
 
 " Load cached colorscheme or hybrid by default
@@ -424,6 +410,11 @@ if has('vim_starting') && ! exists('g:colors_name')
 	execute 'colorscheme' s:cached_colorscheme('hybrid')
 endif
 
+if has('patch-8.0.1781') || has('nvim-0.3.2')
+	autocmd user_theme ColorSchemePre * if exists('g:colors_name')
+		\| highlight clear
+		\| endif
+endif
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

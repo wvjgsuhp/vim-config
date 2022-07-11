@@ -2,6 +2,7 @@
 -- see: https://github.com/simrat39/symbols-outline.nvim
 -- rafi settings
 
+-- :h symbols-outline.txt
 vim.g.symbols_outline = {
 	highlight_hovered_item = true,
 	show_guides = true,
@@ -23,7 +24,7 @@ vim.g.symbols_outline = {
 vim.cmd([[
 	augroup user-symbols-outline
 		autocmd!
-		autocmd FileType Outline setlocal cursorline winhighlight=CursorLine:UserSelectionBackground
+		autocmd FileType Outline setlocal cursorline winhighlight=CursorLine:WildMenu
 		autocmd WinEnter,BufEnter Outline setlocal cursorline
 		autocmd WinLeave,BufLeave Outline setlocal nocursorline
 	augroup END

@@ -9,11 +9,11 @@ local function setup()
 		augroup user-diffview
 			autocmd!
 			autocmd WinEnter,BufEnter diffview://* setlocal cursorline
-			autocmd WinEnter,BufEnter diffview:///panels/* setlocal winhighlight=CursorLine:UserSelectionBackground
+			autocmd WinEnter,BufEnter diffview:///panels/* setlocal winhighlight=CursorLine:WildMenu
 		augroup END
 	]]
 
-	require('diffview').setup{
+	require('diffview').setup({
 		enhanced_diff_hl = true, -- See ':h diffview-config-enhanced_diff_hl'
 		key_bindings = {
 			view = {
@@ -55,7 +55,7 @@ local function setup()
 				['q']     = cb('close'),
 			},
 		}
-	}
+	})
 end
 
 return {

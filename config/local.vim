@@ -145,6 +145,7 @@ nnoremap <Leader>xw <cmd>Trouble workspace_diagnostics<cr>
 " Git
 nnoremap <Leader>gdh <cmd>diffget //2<cr>
 nnoremap <Leader>gdl <cmd>diffget //3<cr>
+nnoremap <Leader>gpn 6kyyGpi
 
 " Search
 nnoremap <Leader>agp :Ag <C-r>0<cr>

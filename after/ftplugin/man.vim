@@ -7,7 +7,7 @@ set cpoptions&vim
 setlocal softtabstop=-1
 
 silent! nunmap <buffer> q
-nnoremap <silent><buffer> q :<C-u>quit<CR>
+" nnoremap <silent><buffer> q :<C-u>quit<CR>
 
 nnoremap <silent><buffer> <Leader>o  :<C-u>call man#show_toc()<CR>
 

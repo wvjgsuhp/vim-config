@@ -292,17 +292,17 @@ endif
 " -------------------------
 
 " Ultimatus Quitos
-if get(g:, 'enable_universal_quit_mapping', 1)
-	autocmd user_events BufWinEnter,VimEnter *
-		\  if ! maparg('q', 'n')
-		\|   nnoremap <buffer> q <cmd>quit<CR>
-		\| endif
+" if get(g:, 'enable_universal_quit_mapping', 1)
+" 	autocmd user_events BufWinEnter,VimEnter *
+" 		\  if ! maparg('q', 'n')
+" 		\|   nnoremap <buffer> q <cmd>quit<CR>
+" 		\| endif
 
-	if &diff && has('vim_starting')
-		set cursorline
-		nnoremap q <cmd>quit<CR>
-	endif
-endif
+" 	if &diff && has('vim_starting')
+" 		set cursorline
+" 		nnoremap q <cmd>quit<CR>
+" 	endif
+" endif
 
 " Switch with adjacent window
 nnoremap <C-x> <C-w>x

@@ -41,7 +41,7 @@ if ! exists('b:qf_isLoc')
 endif
 
 " Setup key-mappings
-nnoremap <buffer> q <Cmd>quit<CR>
+" nnoremap <buffer> q <Cmd>quit<CR>
 
 if exists(':Lfilter')
 	silent! nunmap <buffer> i

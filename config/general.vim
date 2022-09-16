@@ -182,10 +182,10 @@ endif
 " --------
 set complete=.,w,b,k  " C-n completion: Scan buffers, windows and dictionary
 
-set completeopt=menu,menuone    " Always show menu, even for one item
-if has('patch-7.4.775')
-	set completeopt+=noselect     " Do not select a match in the menu.
-endif
+set completeopt=menu,menuone,preview    " Always show menu, even for one item
+" if has('patch-7.4.775')
+" 	set completeopt+=noselect     " Do not select a match in the menu.
+" endif
 
 set diffopt+=iwhite             " Diff mode: ignore whitespace
 if has('patch-8.1.0360') || has('nvim-0.5')

@@ -150,7 +150,7 @@ nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR><cmd>echo 'Yanked absolute pat
 nnoremap <Leader>yaa ggyG''
 
 " Delete
-nnoremap <Leader>dc j<cmd>foldclose<cr>kd1j
+nnoremap <Leader>dif j<cmd>foldclose<cr>kd1j
 
 " Delete current file
 nnoremap <Leader>rm <cmd>call delete(expand('%'))<bar>bd!<cr>

@@ -566,13 +566,6 @@ if dein#tap('accelerated-jk')
 	nmap <silent> k <Plug>(accelerated_jk_gk)
 endif
 
-if dein#tap('vim-edgemotion')
-	nmap gj <Plug>(edgemotion-j)
-	nmap gk <Plug>(edgemotion-k)
-	xmap gj <Plug>(edgemotion-j)
-	xmap gk <Plug>(edgemotion-k)
-endif
-
 if dein#tap('vim-quickhl')
 	nmap <Leader>mt <Plug>(quickhl-manual-this)
 	xmap <Leader>mt <Plug>(quickhl-manual-this)

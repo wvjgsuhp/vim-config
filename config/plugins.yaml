@@ -81,11 +81,6 @@
 - { repo: rhysd/accelerated-jk, on_map: { n: <Plug> }, if: $SUDO_USER == '' }
 - { repo: t9md/vim-quickhl, on_map: { nx: <Plug> }}
 
-- repo: nvim-lualine/lualine.nvim
-  if: has('nvim-0.5')
-  on_event: VimEnter
-  hook_post_source: lua require('plugins.lualine')
-
 - repo: rcarriga/nvim-notify
   if: has('nvim-0.5')
   on_lua: notify

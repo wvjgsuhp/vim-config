@@ -122,7 +122,7 @@ noremap <Leader>9 9gt
 noremap <Leader>0 <cmd>tablast<cr>
 
 " Jump to the beginning/end of a line
-noremap <Leader>hh ^
+noremap <Leader>h ^
 noremap <Leader>l $
 
 " Open terminal

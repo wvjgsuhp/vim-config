@@ -75,6 +75,13 @@
 # ==========================================
 # Interface
 # ---------
+- { repo: kyazdani42/nvim-web-devicons }
+
+- repo: kyazdani42/nvim-tree.lua
+  on_event: VimEnter
+  depends: nvim-web-devicons
+  hook_post_source: lua require('plugins.nvim-tree')
+
 - { repo: itchyny/vim-gitbranch, on_event: FileType }
 - { repo: romainl/vim-cool, on_event: [ CursorMoved, InsertEnter ]}
 - { repo: haya14busa/vim-asterisk, on_map: { nv: <Plug> }}

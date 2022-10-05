@@ -158,6 +158,9 @@ vim.cmd [[
 	augroup END
 ]]
 
+-- Mappings
+vim.keymap.set('n', '<Leader>ff', '<cmd>Telescope find_files<cr>')
+
 -- On-demand setup
 local setup = function()
 	local telescope = require('telescope')
@@ -166,6 +169,7 @@ local setup = function()
 
 	-- Transform to Telescope proper actions.
 	myactions = transform_mod(myactions)
+
 
 	-- Setup Telescope
 	-- See telescope.nvim/lua/telescope/config.lua for defaults.

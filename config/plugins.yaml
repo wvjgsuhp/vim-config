@@ -45,12 +45,6 @@
   on_event: FileType
   hook_source: lua require('plugins.kommentary')
 
-- repo: TimUntersberger/neogit
-  depends: diffview.nvim
-  on_cmd: Neogit
-  on_lua: neogit
-  hook_source: lua require('plugins.neogit')
-
 - repo: lambdalisue/gina.vim
   on_cmd: Gina
   on_ft: [ gitcommit, gitrebase ]
@@ -234,8 +228,9 @@
 
 - repo: nvim-telescope/telescope.nvim
   if: has('nvim-0.7')
-  on_cmd: Telescope
-  on_lua: telescope
+  on_event: VimEnter
+  # on_cmd: Telescope
+  # on_lua: telescope
   hook_post_source: lua require('plugins.telescope').setup()
 
 - repo: nvim-telescope/telescope-ui-select.nvim

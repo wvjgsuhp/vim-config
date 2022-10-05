@@ -54,7 +54,7 @@ let g:vmt_list_item_char = '-'
 " fzf x ag
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
-set rtp+=/usr/local/opt/fzf
+" set rtp+=/usr/local/opt/fzf
 
 " Formatting
 let g:neoformat_sql_sqlformat = {

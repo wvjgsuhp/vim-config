@@ -10,7 +10,7 @@ require("nvim-tree").setup({
     adaptive_size = true,
     mappings = {
       list = {
-        { key = {" "}, action="edit" },
+        { key = {"<c-space>"}, action="edit" },
       },
     },
   },

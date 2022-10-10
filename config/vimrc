@@ -69,7 +69,7 @@ if filereadable($VIM_PATH . '/config/local.vim')
 	call s:source_file('config/local.vim')
 endif
 
-call s:source_file('config/tabline.vim')
+" call s:source_file('config/tabline.vim')
 
 set secure
 

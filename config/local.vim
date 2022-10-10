@@ -1,4 +1,5 @@
-let g:python3_host_prog = $HOME . '/.config/nvim/env/bin/python3'
+let $VIM_PATH = expand('<sfile>:p:h:h')
+let g:python3_host_prog = $VIM_PATH . '/env/bin/python3'
 
 set clipboard+=unnamedplus     " Yank without explicit registration
 

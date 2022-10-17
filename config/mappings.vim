@@ -726,6 +726,10 @@ if dein#tap('nvim-tree.lua')
 	nnoremap <Leader>e <cmd>NvimTreeToggle .<cr>
 endif
 
+if dein#tap('vim-fugitive')
+	nnoremap <Leader>gb <cmd>:Git blame<cr>
+endif
+
 " }}}
 
 " vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :

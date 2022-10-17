@@ -496,11 +496,6 @@ if dein#tap('telescope.nvim')
 	xnoremap <localleader>da :Telescope lsp_range_code_actions<CR>
 endif
 
-if dein#tap('neo-tree.nvim')
-	nnoremap <LocalLeader>e <cmd>Neotree filesystem left toggle dir=./<CR>
-	nnoremap <LocalLeader>a <cmd>Neotree filesystem left reveal<CR>
-endif
-
 if dein#tap('kommentary')
 	nnoremap <Leader>v <Plug>kommentary_line_default
 	xnoremap <Leader>v <Plug>kommentary_visual_default<C-c>
@@ -624,8 +619,8 @@ if dein#tap('todo-comments.nvim')
 endif
 
 if dein#tap('trouble.nvim')
-	nnoremap <leader>e <cmd>TroubleToggle document_diagnostics<CR>
-	nnoremap <leader>r <cmd>TroubleToggle workspace_diagnostics<CR>
+	nnoremap <Leader>xd <cmd>Trouble document_diagnostics<cr>
+	nnoremap <Leader>xw <cmd>Trouble workspace_diagnostics<cr>
 	nnoremap <leader>xq <cmd>TroubleToggle quickfix<CR>
 	nnoremap <leader>xl <cmd>TroubleToggle loclist<CR>
 	nnoremap ]t <cmd>lua require('trouble').next({skip_groups = true, jump = true})<CR>
@@ -637,10 +632,6 @@ if dein#tap('diffview.nvim')
 	nnoremap <Leader>gv <cmd>DiffviewOpen<CR>
 endif
 
-if dein#tap('vimwiki')
-	nnoremap <Leader>W <cmd>VimwikiIndex<CR>
-endif
-
 if dein#tap('vim-choosewin')
 	nmap -         <Plug>(choosewin)
 	nmap <Leader>- <cmd>ChooseWinSwapStay<CR>
@@ -648,19 +639,6 @@ endif
 
 if dein#tap('neogit')
 	nnoremap <Leader>mg <cmd>Neogit<CR>
-endif
-
-if dein#tap('gina.vim')
-	nnoremap <silent> <leader>ga <cmd>Gina add %:p<CR>
-	nnoremap <silent> <leader>gd <cmd>Gina compare<CR>
-	nnoremap <silent> <leader>gc <cmd>Gina commit<CR>
-	nnoremap <silent> <leader>gb <cmd>Gina blame<CR>
-	nnoremap <silent> <leader>gs <cmd>Gina status<CR>
-	nnoremap <silent> <leader>gl <cmd>Gina log --all<CR>
-	nnoremap <silent> <leader>gF <cmd>Gina! fetch<CR>
-	nnoremap <silent> <leader>gp <cmd>Gina! push<CR>
-	nnoremap <silent> <leader>go <cmd>,Gina browse :<CR>
-	xnoremap <silent> <leader>go :Gina browse :<CR>
 endif
 
 if dein#tap('zen-mode.nvim')
@@ -727,17 +705,6 @@ if dein#tap('nvim-ts-hint-textobject')
 	xnoremap <silent> am :lua require('tsht').nodes()<CR>
 endif
 
-if dein#tap('sideways.vim')
-	nnoremap <silent> <, <cmd>SidewaysLeft<CR>
-	nnoremap <silent> >, <cmd>SidewaysRight<CR>
-	nnoremap <silent> [, <cmd>SidewaysJumpLeft<CR>
-	nnoremap <silent> ], <cmd>SidewaysJumpRight<CR>
-	omap <silent> a, <Plug>SidewaysArgumentTextobjA
-	xmap <silent> a, <Plug>SidewaysArgumentTextobjA
-	omap <silent> i, <Plug>SidewaysArgumentTextobjI
-	xmap <silent> i, <Plug>SidewaysArgumentTextobjI
-endif
-
 if dein#tap('splitjoin.vim')
 	nmap sj <cmd>SplitjoinJoin<CR>
 	nmap sk <cmd>SplitjoinSplit<CR>
@@ -753,6 +720,10 @@ endif
 if dein#tap('dsf.vim')
 	nmap dsf <Plug>DsfDelete
 	nmap csf <Plug>DsfChange
+endif
+
+if dein#tap('nvim-tree.lua')
+	nnoremap <Leader>e <cmd>NvimTreeToggle .<cr>
 endif
 
 " }}}

@@ -21,14 +21,6 @@
     let g:sleuth_no_filetype_indent_on = 1
     let g:sleuth_gitcommit_heuristics = 0
 
-- repo: sgur/vim-editorconfig
-  hook_add: |-
-    let g:editorconfig_verbose = 1
-    let g:editorconfig_blacklist = {
-      \ 'filetype': ['git.*', 'help', 'lsp-.*', 'any-jump', 'gina-.*'],
-      \ 'pattern': ['\.un~$']
-      \ }
-
 # Lazy Loading
 # ==========================================
 
@@ -44,11 +36,6 @@
   if: has('nvim-0.5')
   on_event: FileType
   hook_source: lua require('plugins.kommentary')
-
-- repo: lambdalisue/gina.vim
-  on_cmd: Gina
-  on_ft: [ gitcommit, gitrebase ]
-  hook_source: lua require('plugins.gina')
 
 - repo: tversteeg/registers.nvim
   if: has('nvim-0.5')
@@ -364,10 +351,6 @@
   if: has('nvim-0.5')
   depends: nvim-treesitter
   on_lua: tsht
-
-- repo: AndrewRadev/sideways.vim
-  on_cmd: [ SidewaysLeft, SidewaysRight, SidewaysJumpLeft, SidewaysJumpRight ]
-  on_map: { xo: <Plug>Sideways }
 
 - { repo: AndrewRadev/linediff.vim, on_cmd: [ Linediff, LinediffAdd ]}
 

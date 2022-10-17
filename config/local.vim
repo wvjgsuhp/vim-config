@@ -54,6 +54,10 @@ let g:vmt_list_item_char = '-'
 
 " fzf x ag
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
+" command! -bang -nargs=* Ag
+"   \ call fzf#vim#grep(
+"   \   'ag --path-to-ignore ~/.ignore --column --numbers --smart-case --noheading --color ' . shellescape(<q-args>), 1,
+"   \   fzf#vim#with_preview(), <bang>0)
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 " set rtp+=/usr/local/opt/fzf
 
@@ -130,7 +134,6 @@ noremap <Leader>l $
 noremap <Leader>z <cmd>terminal<cr>i
 noremap <Leader>zj <cmd>split<cr><bar><cmd>terminal<cr>13<c-w>_i
 noremap <Leader>zl <cmd>vsplit<cr><bar><cmd>terminal<cr>i
-noremap <Leader>ez <cmd>TmuxNavigateDown<cr><cmd>TmuxNavigateLeft<cr>i
 
 " Preview markdown
 noremap <Leader>mp <cmd>term glow %<cr>
@@ -158,10 +161,6 @@ nnoremap <Leader>rm <cmd>call delete(expand('%'))<bar>bd!<cr>
 
 " Close current buffer
 nnoremap <Leader>bd <cmd>b#<bar>bd#<CR>
-
-" Trouble
-nnoremap <Leader>xd <cmd>Trouble document_diagnostics<cr>
-nnoremap <Leader>xw <cmd>Trouble workspace_diagnostics<cr>
 
 " Git
 nnoremap <Leader>gdh <cmd>diffget //2<cr>

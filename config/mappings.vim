@@ -241,8 +241,8 @@ nnoremap <C-S-j>   <cmd>tabnext<CR>
 nnoremap <C-S-k>   <cmd>tabprevious<CR>
 
 " Moving tabs
-nnoremap <A-{> <cmd>-tabmove<CR>
-nnoremap <A-}> <cmd>+tabmove<CR>
+" nnoremap <A-{> <cmd>-tabmove<CR>
+" nnoremap <A-}> <cmd>+tabmove<CR>
 
 " Show syntax highlight groups for character under cursor
 nmap <Leader>tt <cmd>echo
@@ -263,6 +263,12 @@ if exists(':tnoremap')
 		tnoremap jj          <C-w>N
 	endif
 endif
+
+" Buffer
+nnoremap <silent> <F12> <cmd>bn<CR>
+nnoremap <silent> <F24> <cmd>bp<CR>
+nnoremap <silent> <A-}> <cmd>bn<CR>
+nnoremap <silent> <A-{> <cmd>bp<CR>
 
 " Append mode-line to current buffer
 nnoremap <Leader>ml <cmd>call <SID>append_modeline()<CR>
@@ -707,19 +713,7 @@ endif
 
 if dein#tap('splitjoin.vim')
 	nmap sj <cmd>SplitjoinJoin<CR>
-	nmap sk <cmd>SplitjoinSplit<CR>
-endif
-
-if dein#tap('linediff.vim')
-	xnoremap <Leader>mdf :Linediff<CR>
-	xnoremap <Leader>mda :LinediffAdd<CR>
-	nnoremap <Leader>mds <cmd>LinediffShow<CR>
-	nnoremap <Leader>mdr <cmd>LinediffReset<CR>
-endif
-
-if dein#tap('dsf.vim')
-	nmap dsf <Plug>DsfDelete
-	nmap csf <Plug>DsfChange
+	nmap ss <cmd>SplitjoinSplit<CR>
 endif
 
 if dein#tap('nvim-tree.lua')
@@ -727,7 +721,13 @@ if dein#tap('nvim-tree.lua')
 endif
 
 if dein#tap('vim-fugitive')
-	nnoremap <Leader>gb <cmd>:Git blame<cr>
+	nnoremap <Leader>gb <cmd>Git blame<cr>
+endif
+
+if dein#tap('codewindow.nvim')
+	nmap <Leader>mm <cmd>lua require('codewindow').toggle_minimap()<cr><cmd>lua require('codewindow').toggle_focus()<cr>
+	nmap <Leader>mf <cmd>lua require('codewindow').toggle_focus()<cr>
+	nmap <Leader>mq <cmd>lua require('codewindow').toggle_minimap()<cr>
 endif
 
 " }}}

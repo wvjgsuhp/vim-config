@@ -79,6 +79,7 @@ augroup formatting
 	autocmd BufWritePre *.ts Neoformat
 	autocmd BufWritePre *.tsx Neoformat
 	autocmd BufWritePre *.json Neoformat
+	autocmd BufWritePre *.yaml Neoformat
 	autocmd BufWritePre *.py Neoformat
 	autocmd BufWritePre *.md Neoformat
 	autocmd BufWritePre *.sql Neoformat
@@ -145,7 +146,7 @@ noremap <Leader>q <cmd>e!<cr>
 noremap <Leader>bb <c-^><cr>
 
 " Fix incorrect highlight
-noremap <Leader>ffs <cmd>colorscheme github<cr>
+" noremap <Leader>ffs <cmd>colorscheme github<cr>
 
 " Yank
 nnoremap <Leader>yfn <cmd>let @+=expand("%")<CR><cmd>echo 'Yanked filename'<CR>

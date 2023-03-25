@@ -365,5 +365,7 @@
     let g:splitjoin_join_mapping = ''
     let g:splitjoin_split_mapping = ''
     autocmd user_events FileType go let b:splitjoin_trailing_comma = 1
-
+- repo: phaazon/hop.nvim
+  on_cmd: [HopWord, HopAnywhere, HopLine, HopChar1, HopChar2]
+  hook_post_source: lua require'hop'.setup()
 #  vim: set ts=2 sw=2 tw=80 et :

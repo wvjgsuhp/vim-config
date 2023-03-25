@@ -2,6 +2,7 @@ let $VIM_PATH = expand('<sfile>:p:h:h')
 let g:python3_host_prog = $VIM_PATH . '/env/bin/python3'
 
 set clipboard+=unnamedplus     " Yank without explicit registration
+set cmdheight=0
 
 " Statusline
 let g:airline_powerline_fonts = 1
@@ -81,9 +82,10 @@ augroup formatting
   autocmd BufWritePre *.json Neoformat
   autocmd BufWritePre *.yaml Neoformat
   autocmd BufWritePre *.py Neoformat
-  autocmd BufWritePre *.md Neoformat
+  " autocmd BufWritePre *.md Neoformat
   autocmd BufWritePre *.sql Neoformat
   autocmd BufWritePre *.rs Neoformat
+  autocmd BufWritePre *.R Neoformat
 augroup END
 
 " Save sessions
@@ -128,7 +130,7 @@ noremap <Leader>9 9gt
 noremap <Leader>0 <cmd>tablast<cr>
 
 " Jump to the beginning/end of a line
-noremap <Leader>h ^
+noremap <Leader>hh ^
 noremap <Leader>l $
 
 " Open terminal
@@ -175,3 +177,15 @@ nnoremap <Leader>agiw yiw:Ag <C-r>0<cr>
 " Find
 nnoremap <Leader>fp /<C-r>0<cr>
 nnoremap <Leader>fiw yiw/<C-r>0<cr>
+
+" nnoremap : q:
+" augroup vimrcCmdWindowExperiment
+"   autocmd!
+"   autocmd CmdwinEnter [:>/?=@-] startinsert
+"   " Allows ':help i_CTRL_N' to use current window completions
+"   " autocmd CmdwinEnter [:>/?=@-] let b:cpt_save = &cpt | set ctp=.
+"   " autocmd CmdwinLeave [:>/?=@-] let b:cpt_save = &cpt | set ctp=.
+"   " Work around : in command-line window in normal mode errors because : is mapped to q:
+"   autocmd CmdwinEnter [:>/?=@-] nunmap :
+"   autocmd CmdwinLeave [:>/?=@-] nnoremap : q:
+" augroup END

@@ -177,6 +177,8 @@ local function setup()
 		lspconfig[ls.name].setup(opts)
 	end
 
+	lspconfig.r_language_server.setup{}
+
 	-- global custom location-list diagnostics window toggle.
 	local args = { noremap = true, silent = true }
 	local function nmap(lhs, rhs) vim.api.nvim_set_keymap('n', lhs, rhs, args) end

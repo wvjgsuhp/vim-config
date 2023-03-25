@@ -207,10 +207,10 @@ nmap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap gf <cmd>vertical wincmd f<CR>
 
 " Fast saving from all modes
-nnoremap <Leader>w <cmd>write<CR>
-nnoremap <C-s> <cmd>write<CR>
-xnoremap <C-s> <cmd>write<CR>
-cnoremap <C-s> <cmd>write<CR>
+nnoremap <silent> <Leader>w <cmd>write<CR><cmd><esc>
+nnoremap <C-s> <cmd>write<CR><cmd><esc>
+xnoremap <C-s> <cmd>write<CR><cmd><esc>
+cnoremap <C-s> <cmd>write<CR><cmd><esc>
 
 " }}}
 " Editor UI {{{
@@ -728,6 +728,14 @@ if dein#tap('codewindow.nvim')
 	nmap <Leader>mm <cmd>lua require('codewindow').toggle_minimap()<cr><cmd>lua require('codewindow').toggle_focus()<cr>
 	nmap <Leader>mf <cmd>lua require('codewindow').toggle_focus()<cr>
 	nmap <Leader>mq <cmd>lua require('codewindow').toggle_minimap()<cr>
+endif
+
+if dein#tap('hop.nvim')
+	noremap <Leader>hw :HopWord<cr>
+	noremap <Leader>ha :HopAnywhere<cr>
+	noremap <Leader>hl :HopLine<cr>
+	noremap <Leader>hc :HopChar1<cr>
+	noremap <Leader>hb :HopChar2<cr>
 endif
 
 " }}}

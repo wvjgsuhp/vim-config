@@ -516,10 +516,6 @@ if dein#tap('vim-vsnip')
 	smap <expr><C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 endif
 
-if dein#tap('nvim-gps')
-	nnoremap <Leader>f <cmd>lua print(require'nvim-gps'.get_location())<CR>
-endif
-
 if dein#tap('emmet-vim')
 	autocmd user_events FileType html,css,vue,javascript,javascriptreact,svelte
 		\ EmmetInstall
@@ -731,11 +727,11 @@ if dein#tap('codewindow.nvim')
 endif
 
 if dein#tap('hop.nvim')
-	noremap <Leader>hw :HopWord<cr>
-	noremap <Leader>ha :HopAnywhere<cr>
-	noremap <Leader>hl :HopLine<cr>
-	noremap <Leader>hc :HopChar1<cr>
-	noremap <Leader>hb :HopChar2<cr>
+	noremap <Leader>fw :HopWord<cr>
+	noremap <Leader>fa :HopAnywhere<cr>
+	noremap <Leader>fl :HopLine<cr>
+	noremap <Leader>fc :HopChar1<cr>
+	noremap <Leader>fb :HopChar2<cr>
 endif
 
 " }}}

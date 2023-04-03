@@ -3,14 +3,15 @@ let g:python3_host_prog = $VIM_PATH . '/env/bin/python3'
 
 set clipboard+=unnamedplus     " Yank without explicit registration
 set cmdheight=0
+set winbar+=%{%v:lua.require'nvim-navic'.get_location()%}
 
 " Statusline
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_sep = ' '
 let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline_left_sep = ' '
-let g:airline_right_sep = ' '
+let g:airline_left_sep = ''
+let g:airline_right_sep = ''
+let g:airline_section_y = '%{strftime("%H:%M")}'
 let g:airline_section_z = airline#section#create([g:airline_symbols.colnr, '%v'])
 let g:airline_detect_spell = 0
 let g:airline#extensions#default#section_truncate_width = {
@@ -82,7 +83,7 @@ augroup formatting
   autocmd BufWritePre *.json Neoformat
   autocmd BufWritePre *.yaml Neoformat
   autocmd BufWritePre *.py Neoformat
-  " autocmd BufWritePre *.md Neoformat
+  autocmd BufWritePre *.lua Neoformat
   autocmd BufWritePre *.sql Neoformat
   autocmd BufWritePre *.rs Neoformat
   autocmd BufWritePre *.R Neoformat
@@ -133,10 +134,13 @@ noremap <Leader>0 <cmd>tablast<cr>
 noremap <Leader>h ^
 noremap <Leader>l $
 
-" Open terminal
-noremap <Leader>z <cmd>terminal<cr>i
+" Terminal
+noremap <Leader>zz <cmd>terminal<cr>i
 noremap <Leader>zj <cmd>split<cr><bar><cmd>terminal<cr>13<c-w>_i
 noremap <Leader>zl <cmd>vsplit<cr><bar><cmd>terminal<cr>i
+command! ToggleTerminal call interface#toggleTerminal()
+nnoremap <Leader>` :ToggleTerminal<cr>
+nnoremap <Leader>z4 :term<cr>:vs<cr>:term<cr>:sp<cr>:term<cr>:wincmd h<cr>:sp<cr>:term<cr>
 
 " Preview markdown
 noremap <Leader>mp <cmd>term glow %<cr>

@@ -16,10 +16,10 @@
 - repo: christoomey/vim-tmux-navigator
   if: "! (has('win32') || has('win64'))"
 
-- repo: tpope/vim-sleuth
-  hook_add: |-
-    let g:sleuth_no_filetype_indent_on = 1
-    let g:sleuth_gitcommit_heuristics = 0
+# - repo: tpope/vim-sleuth
+#   hook_add: |-
+#     let g:sleuth_no_filetype_indent_on = 1
+#     let g:sleuth_gitcommit_heuristics = 0
 
 # Lazy Loading
 # ==========================================
@@ -31,11 +31,6 @@
 - { repo: mbbill/undotree, on_cmd: UndotreeToggle }
 - { repo: tweekmonster/helpful.vim, on_cmd: HelpfulVersion }
 - { repo: lambdalisue/suda.vim, on_event: BufRead }
-
-- repo: b3nj5m1n/kommentary
-  if: has('nvim-0.5')
-  on_event: FileType
-  hook_source: lua require('plugins.kommentary')
 
 - repo: tversteeg/registers.nvim
   if: has('nvim-0.5')
@@ -53,10 +48,30 @@
   on_cmd: [GenTocGFM, GenTocRedcarpet, GenTocGitLab, UpdateToc]
   hook_add: let g:vmt_auto_update_on_save = 0
 
+- repo: numToStr/Comment.nvim
+  on_event: VimEnter
+  hook_post_source: lua require('Comment').setup()
+
 # ==========================================
 # Interface
 # ---------
-- { repo: kyazdani42/nvim-web-devicons }
+- repo: MunifTanjim/nui.nvim
+  on_cmd: [Navbuddy]
+
+- repo: SmiteshP/nvim-navic
+  on_event: VimEnter
+  depends: nvim-lspconfig
+
+- repo: SmiteshP/nvim-navbuddy
+  on_event: VimEnter
+  depends: [nvim-lspconfig, nvim-navic, nui.nvim]
+
+- repo: utilyre/barbecue.nvim
+  on_event: VimEnter
+  depends: [nvim-lspconfig, nvim-navic]
+  hook_post_source: lua require('barbecue').setup()
+
+- { repo: kyazdani42/nvim-web-devicons, on_event: VimEnter }
 
 - repo: kyazdani42/nvim-tree.lua
   on_event: VimEnter
@@ -142,10 +157,6 @@
   on_map: { nxo: <Plug> }
   hook_add: let g:shot_f_no_default_key_mappings = 1
 
-# - repo: gorbit99/codewindow.nvim
-#   on_event: VimEnter
-#   hook_post_source: lua require('codewindow').setup()
-
 # ==========================================
 # Completion and code analysis
 # ----------
@@ -220,8 +231,6 @@
 - repo: nvim-telescope/telescope.nvim
   if: has('nvim-0.7')
   on_event: VimEnter
-  # on_cmd: Telescope
-  # on_lua: telescope
   hook_post_source: lua require('plugins.telescope').setup()
 
 - repo: nvim-telescope/telescope-ui-select.nvim
@@ -261,9 +270,6 @@
 - repo: nvim-treesitter/nvim-treesitter-textobjects
   on_source: nvim-treesitter
 
-- repo: JoosepAlviste/nvim-ts-context-commentstring
-  on_source: nvim-treesitter
-
 - repo: windwp/nvim-ts-autotag
   on_source: nvim-treesitter
 
@@ -273,27 +279,14 @@
   hook_post_source: lua require('matchparen').setup()
 
 # Vimscript syntax/indent plugins
-- { repo: iloginow/vim-stylus, on_ft: stylus }
 - { repo: chrisbra/csv.vim, on_ft: csv }
 - { repo: tpope/vim-git, on_ft: [gitcommit, gitrebase, gitconfig] }
-- { repo: dag/vim-fish, on_ft: fish }
 - {
     repo: mustache/vim-mustache-handlebars,
     on_ft: [html, mustache, handlebars],
   }
-- { repo: digitaltoad/vim-pug, on_ft: [pug, jade] }
-- { repo: keith/swift.vim, on_ft: swift }
-- { repo: lifepillar/pgsql.vim, on_ft: pgsql }
 - { repo: vim-jp/syntax-vim-ex, on_ft: vim }
 - { repo: MTDL9/vim-log-highlighting, on_ft: log }
-- { repo: tmux-plugins/vim-tmux, on_ft: tmux }
-- { repo: reasonml-editor/vim-reason-plus, on_ft: [reason, merlin] }
-
-- repo: towolf/vim-helm
-  on_ft: helm
-  hook_add: |-
-    autocmd user_events BufRead,BufNewFile */templates/*.{yaml,yml,tpl}
-      \ setfiletype helm
 
 - repo: preservim/vim-markdown
   on_ft: markdown
@@ -322,50 +315,23 @@
       \ 'py=python'
       \ ]
 
-- repo: pearofducks/ansible-vim
-  on_ft: [ansible, ansible_hosts, jinja2]
-  hook_add: |-
-    let g:ansible_extra_keywords_highlight = 1
-    let g:ansible_template_syntaxes = {
-      \   '*.json.j2': 'json',
-      \   '*.(ba)?sh.j2': 'sh',
-      \   '*.ya?ml.j2': 'yaml',
-      \   '*.xml.j2': 'xml',
-      \   '*.conf.j2': 'conf',
-      \   '*.ini.j2': 'ini'
-      \ }
-    autocmd user_events BufNewFile,BufRead */playbooks/*.{yml,yaml}
-      \ setfiletype yaml.ansible
-    autocmd user_events BufNewFile,BufRead */inventory/*.ini
-      \ setfiletype ansible_hosts
-
-- repo: hashivim/vim-terraform
-  on_ft: terraform
-  on_cmd: [Terraform, TerraformFmt]
-  hook_add: |-
-    autocmd user_events BufNewFile,BufRead *.hcl setfiletype hcl
-    autocmd user_events BufNewFile,BufRead *.tf,*.tfvars setfiletype terraform
-
 # ==========================================
 # Operators and text objects
 # ---------
-- repo: machakann/vim-sandwich
-  on_map:
-    nxo: [<Plug>(operator-sandwich-, <Plug>(textobj-sandwich-]
-  hook_add: let g:sandwich_no_default_key_mappings = 1
-
-- repo: mfussenegger/nvim-ts-hint-textobject
-  if: has('nvim-0.5')
-  depends: nvim-treesitter
-  on_lua: tsht
-
 - repo: AndrewRadev/splitjoin.vim
   on_cmd: [SplitjoinJoin, SplitjoinSplit]
   hook_add: |-
     let g:splitjoin_join_mapping = ''
     let g:splitjoin_split_mapping = ''
     autocmd user_events FileType go let b:splitjoin_trailing_comma = 1
+
 - repo: phaazon/hop.nvim
   on_cmd: [HopWord, HopAnywhere, HopLine, HopChar1, HopChar2]
   hook_post_source: lua require'hop'.setup()
-#  vim: set ts=2 sw=2 tw=80 et :
+
+# ==========================================
+# Buffer
+# --------
+
+- repo: chrisgrieser/nvim-early-retirement
+  on_event: VimEnter

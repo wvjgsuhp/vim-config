@@ -56,10 +56,6 @@ let g:vmt_list_item_char = '-'
 
 " fzf x ag
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
-" command! -bang -nargs=* Ag
-"   \ call fzf#vim#grep(
-"   \   'ag --path-to-ignore ~/.ignore --column --numbers --smart-case --noheading --color ' . shellescape(<q-args>), 1,
-"   \   fzf#vim#with_preview(), <bang>0)
 set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 " set rtp+=/usr/local/opt/fzf
 
@@ -76,17 +72,17 @@ let g:neoformat_python_autopep8 = {
 
 augroup formatting
   autocmd!
+  autocmd BufWritePre *.R Neoformat
   autocmd BufWritePre *.js Neoformat
+  autocmd BufWritePre *.json Neoformat
   autocmd BufWritePre *.jsx Neoformat
+  autocmd BufWritePre *.lua Neoformat
+  autocmd BufWritePre *.py Neoformat
+  autocmd BufWritePre *.rs Neoformat
+  autocmd BufWritePre *.sql Neoformat
   autocmd BufWritePre *.ts Neoformat
   autocmd BufWritePre *.tsx Neoformat
-  autocmd BufWritePre *.json Neoformat
   autocmd BufWritePre *.yaml Neoformat
-  autocmd BufWritePre *.py Neoformat
-  autocmd BufWritePre *.lua Neoformat
-  autocmd BufWritePre *.sql Neoformat
-  autocmd BufWritePre *.rs Neoformat
-  autocmd BufWritePre *.R Neoformat
 augroup END
 
 " Save sessions
@@ -99,12 +95,12 @@ fu! RestoreSess()
     execute 'so ' . getcwd() . '/.session.vim'
     if bufexists(1)
       for l in range(1, bufnr('$'))
-	if bufwinnr(l) == -1
-	  exec 'sbuffer ' . l
-	endif
+        if bufwinnr(l) == -1
+          exec 'sbuffer ' . l
+        endif
       endfor
     endif
-    endif
+  endif
 endfunction
 
 autocmd VimLeave * call SaveSess()
@@ -136,8 +132,8 @@ noremap <Leader>l $
 
 " Terminal
 noremap <Leader>zz <cmd>terminal<cr>i
-noremap <Leader>zj <cmd>split<cr><bar><cmd>terminal<cr>13<c-w>_i
-noremap <Leader>zl <cmd>vsplit<cr><bar><cmd>terminal<cr>i
+noremap <Leader>zj :split<cr>:terminal<cr>13<c-w>_i
+noremap <Leader>zl :vsplit<cr>:terminal<cr>i
 command! ToggleTerminal call interface#toggleTerminal()
 nnoremap <Leader>` :ToggleTerminal<cr>
 nnoremap <Leader>z4 :term<cr>:vs<cr>:term<cr>:sp<cr>:term<cr>:wincmd h<cr>:sp<cr>:term<cr>
@@ -151,9 +147,6 @@ noremap <Leader>q <cmd>e!<cr>
 " Open previous buffer
 noremap <Leader>bb <c-^><cr>
 
-" Fix incorrect highlight
-" noremap <Leader>ffs <cmd>colorscheme github<cr>
-
 " Yank
 nnoremap <Leader>yfn <cmd>let @+=expand("%")<CR><cmd>echo 'Yanked filename'<CR>
 nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR><cmd>echo 'Yanked relative path'<CR>
@@ -164,7 +157,7 @@ nnoremap <Leader>yaa ggyG''
 nnoremap <Leader>dif j<cmd>foldclose<cr>kd1j
 
 " Delete current file
-nnoremap <Leader>rm <cmd>call delete(expand('%'))<bar>bd!<cr>
+nnoremap <Leader>rm <cmd>call delete(expand('%'))<bar>b#<bar>bd#<cr>
 
 " Close current buffer
 nnoremap <Leader>bd <cmd>b#<bar>bd#<CR>
@@ -181,3 +174,7 @@ nnoremap <Leader>agiw yiw:Ag <C-r>0<cr>
 " Find
 nnoremap <Leader>fp /<C-r>0<cr>
 nnoremap <Leader>fiw yiw/<C-r>0<cr>
+nnoremap <Leader>fn :Navbuddy<cr>
+
+" Edit file
+nnoremap <Leader>ze :e ~/.zshrc<cr>

@@ -59,6 +59,12 @@ cnoremap <C-l> <End>
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
 
+" Use ctrl-[hjkl] to select the active split!
+nmap <silent> <c-k> :wincmd k<CR>
+nmap <silent> <c-j> :wincmd j<CR>
+nmap <silent> <c-h> :wincmd h<CR>
+nmap <silent> <c-l> :wincmd l<CR>
+
 " }}}
 " Scroll {{{
 " ------
@@ -207,10 +213,10 @@ nmap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
 nnoremap gf <cmd>vertical wincmd f<CR>
 
 " Fast saving from all modes
-nnoremap <silent> <Leader>w <cmd>write<CR><cmd><esc>
-nnoremap <C-s> <cmd>write<CR><cmd><esc>
-xnoremap <C-s> <cmd>write<CR><cmd><esc>
-cnoremap <C-s> <cmd>write<CR><cmd><esc>
+nnoremap <Leader>w <cmd>silent write<CR>
+nnoremap <C-s> <cmd>silent write<CR>
+xnoremap <C-s> <cmd>silent write<CR>
+cnoremap <C-s> <cmd>silent write<CR>
 
 " }}}
 " Editor UI {{{
@@ -502,15 +508,6 @@ if dein#tap('telescope.nvim')
 	xnoremap <localleader>da :Telescope lsp_range_code_actions<CR>
 endif
 
-if dein#tap('kommentary')
-	nnoremap <Leader>v <Plug>kommentary_line_default
-	xnoremap <Leader>v <Plug>kommentary_visual_default<C-c>
-endif
-
-if dein#tap('symbols-outline.nvim')
-	nnoremap <Leader>o <cmd>SymbolsOutline<CR>
-endif
-
 if dein#tap('vim-vsnip')
 	imap <expr><C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
 	smap <expr><C-l> vsnip#available(1) ? '<Plug>(vsnip-expand-or-jump)' : '<C-l>'
@@ -559,8 +556,8 @@ if dein#tap('vim-niceblock')
 endif
 
 if dein#tap('accelerated-jk')
-	nmap <silent> j <Plug>(accelerated_jk_gj)
-	nmap <silent> k <Plug>(accelerated_jk_gk)
+	nmap <silent> j <Plug>(accelerated_jk_gj)zz
+	nmap <silent> k <Plug>(accelerated_jk_gk)zz
 endif
 
 if dein#tap('vim-quickhl')
@@ -734,6 +731,15 @@ if dein#tap('hop.nvim')
 	noremap <Leader>fb :HopChar2<cr>
 endif
 
-" }}}
+if dein#tap('fine-cmdline.nvim')
+  nnoremap : <cmd>FineCmdline<CR>
+  xnoremap : <cmd>FineCmdline '<,'><CR>
+endif
 
-" vim: set foldmethod=marker ts=2 sw=2 tw=80 noet :
+if dein#tap('telescope.nvim')
+  nnoremap <Leader>ff :Telescope find_files<cr>
+  nnoremap <Leader>fg <cmd>Telescope live_grep<CR>
+  nnoremap <Leader>fz <cmd>Telescope grep_string<CR>
+  nnoremap <Leader>cbf <cmd>Telescope current_buffer_fuzzy_find<CR>
+endif
+" }}}

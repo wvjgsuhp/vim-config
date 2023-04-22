@@ -4,14 +4,24 @@ let g:python3_host_prog = $VIM_PATH . '/env/bin/python3'
 set clipboard+=unnamedplus     " Yank without explicit registration
 set cmdheight=0
 set winbar+=%{%v:lua.require'nvim-navic'.get_location()%}
+set showtabline=0
 
 " Statusline
+function! Recording()
+  let l:recording_register = reg_recording()
+  if l:recording_register == ""
+    return ""
+  else
+    return "recording @" .. l:recording_register .. " "
+  endif
+endfunction
+
 let g:airline_powerline_fonts = 1
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#left_alt_sep = '|'
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_section_y = '%{strftime("%H:%M")}'
+let g:airline_section_y = '%{Recording()}%{strftime("%H:%M")}'
 let g:airline_section_z = airline#section#create([g:airline_symbols.colnr, '%v'])
 let g:airline_detect_spell = 0
 let g:airline#extensions#default#section_truncate_width = {
@@ -43,7 +53,7 @@ let g:airline_mode_map = {
   \ ''     : 'V',
 \ }
 
-let mapleader = ' '
+" let mapleader = ' '
 
 set clipboard+=unnamedplus     " Yank without explicit registration
 set showcmd
@@ -55,8 +65,8 @@ set tabstop=2 shiftwidth=2 expandtab
 let g:vmt_list_item_char = '-'
 
 " fzf x ag
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
-set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
+" command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
+" set rtp+=/home/linuxbrew/.linuxbrew/opt/fzf
 " set rtp+=/usr/local/opt/fzf
 
 " Formatting
@@ -69,6 +79,13 @@ let g:neoformat_python_autopep8 = {
   \ 'exe': 'autopep8',
   \ 'args': ['--max-line-length=80', '--experimental'],
 \ }
+
+augroup buffer_execution
+  autocmd FileType python map <buffer> <F9>
+    \ :w<CR>:exec '!python' shellescape(@%, 1)<CR>
+  autocmd FileType python imap <buffer> <F9>
+    \ <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
+augroup END
 
 augroup formatting
   autocmd!
@@ -145,13 +162,14 @@ noremap <Leader>mp <cmd>term glow %<cr>
 noremap <Leader>q <cmd>e!<cr>
 
 " Open previous buffer
-noremap <Leader>bb <c-^><cr>
+noremap <Leader>bb <c-^>
 
 " Yank
 nnoremap <Leader>yfn <cmd>let @+=expand("%")<CR><cmd>echo 'Yanked filename'<CR>
 nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR><cmd>echo 'Yanked relative path'<CR>
 nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR><cmd>echo 'Yanked absolute path'<CR>
 nnoremap <Leader>yaa ggyG''
+nnoremap <Leader>ypG VGyGp
 
 " Delete
 nnoremap <Leader>dif j<cmd>foldclose<cr>kd1j
@@ -178,3 +196,14 @@ nnoremap <Leader>fn :Navbuddy<cr>
 
 " Edit file
 nnoremap <Leader>ze :e ~/.zshrc<cr>
+
+" Center focused line
+let line_moved_commands = ['u', 'e', '<c-r>', 'n', 'N', 'G', 'w', 'b', '``']
+for cmd in line_moved_commands
+  execute 'nmap <silent> '.cmd.' '.cmd.'zz'
+  execute 'vmap <silent> '.cmd.' '.cmd.'zz'
+endfor
+
+vmap <silent> j jzz
+vmap <silent> k kzz
+cmap <expr> <cr> getcmdtype() =~ '^[/?]$' ? '<cr>zz' : '<cr>'

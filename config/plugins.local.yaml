@@ -1,5 +1,4 @@
 - repo: vim-airline/vim-airline
-- repo: junegunn/fzf.vim
 - repo: mracos/mermaid.vim
 - repo: tpope/vim-fugitive
 - repo: tpope/vim-repeat

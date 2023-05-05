@@ -53,8 +53,6 @@ let g:airline_mode_map = {
   \ ''     : 'V',
 \ }
 
-" let mapleader = ' '
-
 set clipboard+=unnamedplus     " Yank without explicit registration
 set showcmd
 set number                     " Show current line number
@@ -63,6 +61,9 @@ set tabstop=2 shiftwidth=2 expandtab
 
 " Markdown TOC
 let g:vmt_list_item_char = '-'
+
+" bionic read
+let g:flow_strength = 0.4
 
 " fzf x ag
 " command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--path-to-ignore ~/.ignore --color-path="0;33"', <bang>0)
@@ -82,9 +83,9 @@ let g:neoformat_python_autopep8 = {
 
 augroup buffer_execution
   autocmd FileType python map <buffer> <F9>
-    \ :w<CR>:exec '!python' shellescape(@%, 1)<CR>
+    \ <cmd>w<CR><cmd>exec '!python' shellescape(@%, 1)<CR>
   autocmd FileType python imap <buffer> <F9>
-    \ <esc>:w<CR>:exec '!python' shellescape(@%, 1)<CR>
+    \ <esc><cmd>w<CR><cmd>exec '!python' shellescape(@%, 1)<CR>
 augroup END
 
 augroup formatting
@@ -125,7 +126,7 @@ autocmd VimEnter * nested call RestoreSess()
 
 " Mapping
 " Go from terminal to normal mode
-tnoremap <Esc> <C-\><C-n>
+tnoremap <Esc> <C-\><C-n>zz
 
 " Paste
 nnoremap <Leader>piw viwpyiw
@@ -149,10 +150,10 @@ noremap <Leader>l $
 
 " Terminal
 noremap <Leader>zz <cmd>terminal<cr>i
-noremap <Leader>zj :split<cr>:terminal<cr>13<c-w>_i
-noremap <Leader>zl :vsplit<cr>:terminal<cr>i
+noremap <Leader>zj <cmd>split<cr><cmd>terminal<cr>13<c-w>_i
+noremap <Leader>zl <cmd>vsplit<cr><cmd>terminal<cr>i
 command! ToggleTerminal call interface#toggleTerminal()
-nnoremap <Leader>` :ToggleTerminal<cr>
+nnoremap <Leader>` <cmd>ToggleTerminal<cr>
 nnoremap <Leader>z4 :term<cr>:vs<cr>:term<cr>:sp<cr>:term<cr>:wincmd h<cr>:sp<cr>:term<cr>
 
 " Preview markdown
@@ -185,17 +186,13 @@ nnoremap <Leader>gdh <cmd>diffget //2<cr>
 nnoremap <Leader>gdl <cmd>diffget //3<cr>
 nnoremap <Leader>gpn 6kyyGpi
 
-" Search
-nnoremap <Leader>agp :Ag <C-r>0<cr>
-nnoremap <Leader>agiw yiw:Ag <C-r>0<cr>
-
 " Find
 nnoremap <Leader>fp /<C-r>0<cr>
 nnoremap <Leader>fiw yiw/<C-r>0<cr>
-nnoremap <Leader>fn :Navbuddy<cr>
+nnoremap <Leader>fn <cr>Navbuddy<cr>
 
 " Edit file
-nnoremap <Leader>ze :e ~/.zshrc<cr>
+nnoremap <Leader>ze <cr>e ~/.zshrc<cr>
 
 " Center focused line
 let line_moved_commands = ['u', 'e', '<c-r>', 'n', 'N', 'G', 'w', 'b', '``']
@@ -207,3 +204,5 @@ endfor
 vmap <silent> j jzz
 vmap <silent> k kzz
 cmap <expr> <cr> getcmdtype() =~ '^[/?]$' ? '<cr>zz' : '<cr>'
+
+nnoremap <Leader>zr <cmd>res 13<cr>

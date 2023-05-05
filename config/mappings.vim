@@ -60,10 +60,10 @@ cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
 
 " Use ctrl-[hjkl] to select the active split!
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
+nmap <silent> <c-k> <cmd>wincmd k<CR>
+nmap <silent> <c-j> <cmd>wincmd j<CR>
+nmap <silent> <c-h> <cmd>wincmd h<CR>
+nmap <silent> <c-l> <cmd>wincmd l<CR>
 
 " }}}
 " Scroll {{{
@@ -103,8 +103,8 @@ nnoremap Y y$
 " nnoremap x "_x
 
 " Paste in visual-mode without pushing to register
-xnoremap p :call <SID>visual_paste('p')<CR>
-xnoremap P :call <SID>visual_paste('P')<CR>
+xnoremap p <cmd>call <SID>visual_paste('p')<CR>
+xnoremap P <cmd>call <SID>visual_paste('P')<CR>
 
 " }}}
 " Edit {{{
@@ -137,8 +137,8 @@ xnoremap <S-Tab> <gv
 " Drag current line/s vertically and auto-indent
 nnoremap <Leader>k <cmd>move-2<CR>==
 nnoremap <Leader>j <cmd>move+<CR>==
-xnoremap <Leader>k :move'<-2<CR>gv=gv
-xnoremap <Leader>j :move'>+<CR>gv=gv
+xnoremap <Leader>k <cmd>move'<-2<CR>gv=gv
+xnoremap <Leader>j <cmd>move'>+<CR>gv=gv
 
 " Duplicate lines without affecting PRIMARY and CLIPBOARD selections.
 nnoremap <Leader>d m`""Y""P``
@@ -163,8 +163,8 @@ nnoremap <Leader>cw <cmd>keeppatterns %substitute/\s\+$//e<CR>
 " ----------------
 
 " Use backspace key for matching parens
-nnoremap <BS> %
-xnoremap <BS> %
+nnoremap <BS> %zz
+xnoremap <BS> %zz
 
 " Repeat latest f, t, F or T
 nnoremap \ ;
@@ -173,20 +173,20 @@ nnoremap \ ;
 nnoremap <expr> gpp '`['.strpart(getregtype(), 0, 1).'`]'
 
 " Quick substitute within selected area
-xnoremap sg :s//gc<Left><Left><Left>
+xnoremap sg <cmd>s//gc<Left><Left><Left>
 
 " C-r: Easier search and replace visual/select mode
-xnoremap <C-r> :<C-u>%s/\V<C-R>=<SID>get_selection()<CR>//gc<Left><Left><Left>
+xnoremap <C-r> <cmd><C-u>%s/\V<C-R>=<SID>get_selection()<CR>//gc<Left><Left><Left>
 
 " }}}
 " Command & History {{{
 " -----------------
 
 " Start an external command with a single bang
-nnoremap ! :!
+nnoremap ! <cmd>!
 
 " Put vim command output into buffer
-nnoremap g! :put=execute('')<Left><Left>
+nnoremap g! <cmd>put=execute('')<Left><Left>
 
 " Allow misspellings
 cnoreabbrev qw wq
@@ -207,7 +207,7 @@ cnoremap <Down> <C-n>
 " ---------------
 
 " Switch (window) to the directory of the current opened buffer
-nmap <Leader>cd :lcd %:p:h<CR>:pwd<CR>
+nmap <Leader>cd <cmd>lcd %:p:h<CR><cmd>pwd<CR>
 
 " Open file under the cursor in a vsplit
 nnoremap gf <cmd>vertical wincmd f<CR>
@@ -261,14 +261,14 @@ nmap <Leader>tt <cmd>echo
 " ------------
 
 " Terminal mappings
-if exists(':tnoremap')
-	if has('nvim')
-		tnoremap jj <C-\><C-n>
-	else
-		tnoremap <Esc><Esc>  <C-w>N
-		tnoremap jj          <C-w>N
-	endif
-endif
+" if exists(':tnoremap')
+" 	if has('nvim')
+" 		tnoremap jj <C-\><C-n>
+" 	else
+" 		tnoremap <Esc><Esc>  <C-w>N
+" 		tnoremap jj          <C-w>N
+" 	endif
+" endif
 
 " Buffer
 nnoremap <silent> <F12> <cmd>bn<CR>
@@ -335,8 +335,8 @@ nnoremap [Window]x  <cmd>call <SID>window_empty_buffer()<CR>
 nnoremap [Window]z  <cmd>call <SID>zoom()<CR>
 
 " Split current buffer, go to previous window and previous buffer
-nnoremap [Window]sv <cmd>split<CR>:wincmd p<CR>:e#<CR>
-nnoremap [Window]sg <cmd>vsplit<CR>:wincmd p<CR>:e#<CR>
+nnoremap [Window]sv <cmd>split<CR><cmd>wincmd p<CR><cmd>e#<CR>
+nnoremap [Window]sg <cmd>vsplit<CR><cmd>wincmd p<CR><cmd>e#<CR>
 
 " Background dark/light toggle
 nmap [Window]h <cmd>call <SID>toggle_background()<CR>
@@ -505,7 +505,7 @@ if dein#tap('telescope.nvim')
 	nnoremap <localleader>di <cmd>Telescope lsp_implementations<CR>
 	nnoremap <localleader>dr <cmd>Telescope lsp_references<CR>
 	nnoremap <localleader>da <cmd>Telescope lsp_code_actions<CR>
-	xnoremap <localleader>da :Telescope lsp_range_code_actions<CR>
+	xnoremap <localleader>da <cmd>Telescope lsp_range_code_actions<CR>
 endif
 
 if dein#tap('vim-vsnip')
@@ -666,9 +666,9 @@ if dein#tap('nvim-spectre')
 	nnoremap <Leader>so <cmd>lua require('spectre').open()<CR>
 	" Search current word
 	nnoremap <Leader>sw <cmd>lua require('spectre').open_visual({select_word=true})<CR>
-	xnoremap <silent><Leader>s :lua require('spectre').open_visual()<CR>
+	xnoremap <silent><Leader>s <cmd>lua require('spectre').open_visual()<CR>
 	" Search in current file
-	nnoremap <silent><Leader>sp viw:lua require('spectre').open_file_search()<CR>
+	nnoremap <silent><Leader>sp viw<cmd>lua require('spectre').open_file_search()<CR>
 endif
 
 if dein#tap('undotree')
@@ -701,7 +701,7 @@ endif
 
 if dein#tap('nvim-ts-hint-textobject')
 	omap              am <cmd>lua require('tsht').nodes()<CR>
-	xnoremap <silent> am :lua require('tsht').nodes()<CR>
+	xnoremap <silent> am <cmd>lua require('tsht').nodes()<CR>
 endif
 
 if dein#tap('splitjoin.vim')
@@ -724,11 +724,11 @@ if dein#tap('codewindow.nvim')
 endif
 
 if dein#tap('hop.nvim')
-	noremap <Leader>fw :HopWord<cr>
-	noremap <Leader>fa :HopAnywhere<cr>
-	noremap <Leader>fl :HopLine<cr>
-	noremap <Leader>fc :HopChar1<cr>
-	noremap <Leader>fb :HopChar2<cr>
+	noremap <Leader>fw <cmd>HopWord<cr>
+	noremap <Leader>fa <cmd>HopAnywhere<cr>
+	noremap <Leader>fl <cmd>HopLine<cr>
+	noremap <Leader>fc <cmd>HopChar1<cr>
+	" noremap <Leader>fb <cmd>HopChar2<cr>
 endif
 
 if dein#tap('fine-cmdline.nvim')
@@ -737,9 +737,13 @@ if dein#tap('fine-cmdline.nvim')
 endif
 
 if dein#tap('telescope.nvim')
-  nnoremap <Leader>ff :Telescope find_files<cr>
+  nnoremap <Leader>ff <cmd>Telescope find_files<cr>
   nnoremap <Leader>fg <cmd>Telescope live_grep<CR>
   nnoremap <Leader>fz <cmd>Telescope grep_string<CR>
-  nnoremap <Leader>cbf <cmd>Telescope current_buffer_fuzzy_find<CR>
+  nnoremap <Leader>fb <cmd>Telescope current_buffer_fuzzy_find<CR>
+endif
+
+if dein#tap('fsread.nvim')
+  nnoremap <Leader>br <cmd>FSToggle<CR>
 endif
 " }}}

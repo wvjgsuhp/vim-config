@@ -43,6 +43,9 @@
   on_event: VimEnter
   hook_post_source: lua require('Comment').setup()
 
+- repo: nullchilly/fsread.nvim
+  on_cmd: [FSToggle]
+
 # ==========================================
 # Interface
 # ---------
@@ -149,6 +152,12 @@
 - repo: VonHeikemen/fine-cmdline.nvim
   on_cmd: [FineCmdline]
   depends: [nui.nvim]
+  hook_post_source: lua require('plugins.fine-cmdline')
+
+- repo: folke/noice.nvim
+  on_event: VimEnter
+  depends: [nui.nvim]
+  hook_post_source: lua require('plugins.noice')
 
 # ==========================================
 # Completion and code analysis

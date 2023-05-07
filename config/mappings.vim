@@ -549,11 +549,6 @@ if dein#tap('vim-quickhl')
 	xmap <Leader>mt <Plug>(quickhl-manual-this)
 endif
 
-if dein#tap('vim-sidemenu')
-	nmap <Leader>l <Plug>(sidemenu)
-	xmap <Leader>l <Plug>(sidemenu-visual)
-endif
-
 if dein#tap('indent-blankline.nvim')
 	nmap <Leader>ti <cmd>IndentBlanklineToggle<CR>
 endif

@@ -149,12 +149,14 @@ noremap <Leader>0 <cmd>tablast<cr>
 
 " Jump to the beginning/end of a line
 noremap <Leader>h ^
-noremap <Leader>l $
+nnoremap <Leader>l $
+onoremap <Leader>l $
+xnoremap <Leader>l $h
 
 " Terminal
 noremap <Leader>zz <cmd>terminal<cr>i
 noremap <Leader>zj <cmd>split<cr><cmd>terminal<cr>13<c-w>_i
-noremap <Leader>zl <cmd>vsplit<cr><cmd>terminal<cr>i
+nmap <Leader>zl <cmd>vsplit<cr> zz
 command! ToggleTerminal call interface#toggleTerminal()
 nnoremap <Leader>` <cmd>ToggleTerminal<cr>
 nnoremap <Leader>z4 :term<cr>:vs<cr>:term<cr>:sp<cr>:term<cr>:wincmd h<cr>:sp<cr>:term<cr>
@@ -169,9 +171,22 @@ noremap <Leader>q <cmd>e!<cr>
 noremap <Leader>bb <c-^>
 
 " Yank
-nnoremap <Leader>yfn <cmd>let @+=expand("%")<CR><cmd>echo 'Yanked filename'<CR>
-nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR><cmd>echo 'Yanked relative path'<CR>
-nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR><cmd>echo 'Yanked absolute path'<CR>
+if dein#tap('nvim-notify')
+  nnoremap <Leader>yfn <cmd>let @+=expand("%:t")<CR>
+    \ :lua vim.notify('Yanked filename: <c-r>+', 'info')<CR>
+  nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR>
+    \ :lua vim.notify('Yanked relative path <c-r>+', 'info')<CR>
+  nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR>
+    \ :lua vim.notify('Yanked absolute path <c-r>+', 'info')<CR>
+else
+  nnoremap <Leader>yfn <cmd>let @+=expand("%:t")<CR>
+    \ <cmd>echo 'Yanked filename'<CR>
+  nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR>
+    \ <cmd>echo 'Yanked relative path'<CR>
+  nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR>
+    \ <cmd>echo 'Yanked absolute path'<CR>
+endif
+
 nnoremap <Leader>yaa ggyG''
 nnoremap <Leader>ypG VGyGp
 

@@ -243,11 +243,11 @@ endif
 let &showbreak='↳  '
 set listchars=tab:\▏\ ,extends:⟫,precedes:⟪,nbsp:␣,trail:·
 
-if has('folding') && has('vim_starting')
-	set foldenable
-	set foldmethod=indent
-	set foldlevel=99
-endif
+" if has('folding') && has('vim_starting')
+" 	set foldenable
+" 	set foldmethod=indent
+" 	set foldlevel=99
+" endif
 
 if has('patch-7.4.314')
 	" Do not display completion messages

@@ -5,24 +5,33 @@ set clipboard+=unnamedplus     " Yank without explicit registration
 set cmdheight=0
 set winbar+=%{%v:lua.require'nvim-navic'.get_location()%}
 set showtabline=0
+set number                     " Show current line number
+set relativenumber             " Show relative line numbers
+set tabstop=2 shiftwidth=2 expandtab
+set foldmethod=expr
 
-" Statusline
+" Status line
 function! Recording()
   let l:recording_register = reg_recording()
   if l:recording_register == ""
     return ""
   else
-    return "recording @" .. l:recording_register .. " "
+    return 'recording @' .. l:recording_register .. " "
   endif
 endfunction
 
 let g:airline_powerline_fonts = 1
-" let g:airline#extensions#tabline#enabled = 1
-" let g:airline#extensions#tabline#left_alt_sep = '|'
 let g:airline_left_sep = ''
 let g:airline_right_sep = ''
-let g:airline_section_y = '%{Recording()}%{strftime("%H:%M")}'
-let g:airline_section_z = airline#section#create([g:airline_symbols.colnr, '%v'])
+
+call airline#parts#define_function('recording', 'Recording')
+call airline#parts#define_accent('recording', 'red')
+let s:section_c = [
+  \ 'recording', '%<', 'file', ' ', 'readonly', 'coc_status', 'lsp_progress']
+let g:airline_section_c = airline#section#create(s:section_c)
+
+let g:airline_section_y = '%{strftime("%H:%M")}'
+let g:airline_section_z = 'c:%v'
 let g:airline_detect_spell = 0
 let g:airline#extensions#default#section_truncate_width = {
   \ 'b': 79,
@@ -52,12 +61,6 @@ let g:airline_mode_map = {
   \ 'V'      : 'V',
   \ ''     : 'V',
 \ }
-
-set clipboard+=unnamedplus     " Yank without explicit registration
-set showcmd
-set number                     " Show current line number
-set relativenumber             " Show relative line numbers
-set tabstop=2 shiftwidth=2 expandtab
 
 " Markdown TOC
 let g:vmt_list_item_char = '-'

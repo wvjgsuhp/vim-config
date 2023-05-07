@@ -103,8 +103,8 @@ nnoremap Y y$
 " nnoremap x "_x
 
 " Paste in visual-mode without pushing to register
-xnoremap p <cmd>call <SID>visual_paste('p')<CR>
-xnoremap P <cmd>call <SID>visual_paste('P')<CR>
+xnoremap p :call <SID>visual_paste('p')<CR>
+xnoremap P :call <SID>visual_paste('P')<CR>
 
 " }}}
 " Edit {{{
@@ -276,16 +276,13 @@ nnoremap <silent> <F24> <cmd>bp<CR>
 nnoremap <silent> <A-}> <cmd>bn<CR>
 nnoremap <silent> <A-{> <cmd>bp<CR>
 
-" Append mode-line to current buffer
-nnoremap <Leader>ml <cmd>call <SID>append_modeline()<CR>
-
 " Source line and selection in vim
 xnoremap <Leader>S y:execute @@<CR>:echo 'Sourced selection.'<CR>
 nnoremap <Leader>S ^vg_y:execute @@<CR>:echo 'Sourced line.'<CR>
 
-" Jump entire buffers in jumplist
-nnoremap g<C-i> <cmd>call <SID>jump_buffer(-1)<CR>
-nnoremap g<C-o> <cmd>call <SID>jump_buffer(1)<CR>
+" " Jump entire buffers in jumplist
+" nnoremap g<C-i> <cmd>call <SID>jump_buffer(-1)<CR>
+" nnoremap g<C-o> <cmd>call <SID>jump_buffer(1)<CR>
 
 if has('mac')
 	" Open the macOS dictionary on current word
@@ -303,19 +300,6 @@ endif
 " Windows, buffers and tabs {{{
 " -------------------------
 
-" Ultimatus Quitos
-" if get(g:, 'enable_universal_quit_mapping', 1)
-" 	autocmd user_events BufWinEnter,VimEnter *
-" 		\  if ! maparg('q', 'n')
-" 		\|   nnoremap <buffer> q <cmd>quit<CR>
-" 		\| endif
-
-" 	if &diff && has('vim_starting')
-" 		set cursorline
-" 		nnoremap q <cmd>quit<CR>
-" 	endif
-" endif
-
 " Switch with adjacent window
 nnoremap <C-x> <C-w>x
 
@@ -331,15 +315,15 @@ nnoremap [Window]g  <cmd>vsplit<CR>
 nnoremap [Window]t  <cmd>tabnew<CR>
 nnoremap [Window]o  <cmd>only<CR>
 nnoremap [Window]q  <cmd>quit<CR>
-nnoremap [Window]x  <cmd>call <SID>window_empty_buffer()<CR>
-nnoremap [Window]z  <cmd>call <SID>zoom()<CR>
+nnoremap [Window]x  :call <SID>window_empty_buffer()<CR>
+nnoremap [Window]z  :call <SID>zoom()<CR>
 
 " Split current buffer, go to previous window and previous buffer
 nnoremap [Window]sv <cmd>split<CR><cmd>wincmd p<CR><cmd>e#<CR>
 nnoremap [Window]sg <cmd>vsplit<CR><cmd>wincmd p<CR><cmd>e#<CR>
 
 " Background dark/light toggle
-nmap [Window]h <cmd>call <SID>toggle_background()<CR>
+nmap [Window]h :call <SID>toggle_background()<CR>
 
 " }}}
 " Helper functions {{{
@@ -711,6 +695,7 @@ endif
 
 if dein#tap('nvim-tree.lua')
 	nnoremap <Leader>e <cmd>NvimTreeToggle .<cr>
+  nnoremap <Leader>fe <cmd>NvimTreeFindFile<cr><cmd>NvimTreeResize 34<cr><cmd>NvimTreeFocus<cr>
 endif
 
 if dein#tap('vim-fugitive')

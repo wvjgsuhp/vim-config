@@ -150,14 +150,23 @@
   hook_add: let g:shot_f_no_default_key_mappings = 1
 
 - repo: VonHeikemen/fine-cmdline.nvim
-  on_cmd: [FineCmdline]
+  on_cmd: VimEnter
   depends: [nui.nvim]
   hook_post_source: lua require('plugins.fine-cmdline')
 
-- repo: folke/noice.nvim
+# - repo: folke/noice.nvim
+#   on_event: VimEnter
+#   depends: [nui.nvim]
+#   hook_post_source: lua require('plugins.noice')
+
+- repo: vim-airline/vim-airline
   on_event: VimEnter
-  depends: [nui.nvim]
-  hook_post_source: lua require('plugins.noice')
+
+- repo: kevinhwang91/promise-async
+- repo: kevinhwang91/nvim-ufo
+  on_event: VimEnter
+  depends: [promise-async, nvim-treesitter]
+  hook_post_source: lua require('plugins.nvim-ufo')
 
 # ==========================================
 # Completion and code analysis

@@ -205,8 +205,8 @@ nnoremap <Leader>gdl <cmd>diffget //3<cr>
 nnoremap <Leader>gpn 6kyyGpi
 
 " Find
-nnoremap <Leader>fp /<C-r>0<cr>
-nnoremap <Leader>fiw yiw/<C-r>0<cr>
+nmap <Leader>fp /<C-r>0<cr>
+nmap <Leader>fiw yiw/<C-r>0<cr>N
 nnoremap <Leader>fn <cmd>Navbuddy<cr>
 
 " Edit file

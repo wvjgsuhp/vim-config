@@ -50,14 +50,14 @@
 # Interface
 # ---------
 - repo: MunifTanjim/nui.nvim
-  on_cmd: [Navbuddy, FineCmdline]
 
 - repo: SmiteshP/nvim-navic
-  on_event: VimEnter
-  depends: nvim-lspconfig
+  on_source: nvim-lspconfig
+  depends: [nvim-lspconfig]
 
 - repo: SmiteshP/nvim-navbuddy
-  on_event: VimEnter
+  on_cmd: [Navbuddy]
+  on_source: nvim-lspconfig
   depends: [nvim-lspconfig, nvim-navic, nui.nvim]
 
 - repo: utilyre/barbecue.nvim
@@ -66,8 +66,8 @@
   hook_post_source: lua require('barbecue').setup()
 
 - repo: kyazdani42/nvim-tree.lua
-  on_event: VimEnter
-  depends: nvim-web-devicons
+  on_cmd: [NvimTreeToggle, NvimTreeFindFile]
+  depends: [nvim-web-devicons]
   hook_post_source: lua require('plugins.nvim-tree')
 
 - { repo: itchyny/vim-gitbranch, on_event: FileType }
@@ -277,7 +277,7 @@
   hook_post_update: ":TSUpdate"
   hook_source: lua require('plugins.treesitter')
 
-- repo: nvim-treesitter/nvim-treesitter-"extobjects
+- repo: nvim-treesitter/nvim-treesitter-textobjects
   on_source: nvim-treesitter
 
 - repo: JoosepAlviste/nvim-ts-context-commentstring
@@ -343,7 +343,7 @@
 
 - repo: phaazon/hop.nvim
   on_cmd: [HopWord, HopAnywhere, HopLine, HopChar1, HopChar2]
-  hook_post_source: lua require'hop'.setup()
+  hook_post_source: lua require('hop').setup()
 
 # ==========================================
 # Buffer

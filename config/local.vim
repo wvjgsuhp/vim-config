@@ -207,10 +207,10 @@ nnoremap <Leader>gpn 6kyyGpi
 " Find
 nnoremap <Leader>fp /<C-r>0<cr>
 nnoremap <Leader>fiw yiw/<C-r>0<cr>
-nnoremap <Leader>fn <cr>Navbuddy<cr>
+nnoremap <Leader>fn <cmd>Navbuddy<cr>
 
 " Edit file
-nnoremap <Leader>ze <cr>e ~/.zshrc<cr>
+nnoremap <Leader>ze <cmd>e ~/.zshrc<cr>
 
 " Center focused line
 let line_moved_commands = ['u', 'e', '<c-r>', 'n', 'N', 'G', 'w', 'b', '``']

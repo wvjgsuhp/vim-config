@@ -175,16 +175,16 @@ if dein#tap('nvim-notify')
   nnoremap <Leader>yfn <cmd>let @+=expand("%:t")<CR>
     \ :lua vim.notify('Yanked filename: <c-r>+', 'info')<CR>
   nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR>
-    \ :lua vim.notify('Yanked relative path <c-r>+', 'info')<CR>
+    \ :lua vim.notify('Yanked relative path: <c-r>+', 'info')<CR>
   nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR>
-    \ :lua vim.notify('Yanked absolute path <c-r>+', 'info')<CR>
+    \ :lua vim.notify('Yanked absolute path: <c-r>+', 'info')<CR>
 else
   nnoremap <Leader>yfn <cmd>let @+=expand("%:t")<CR>
-    \ <cmd>echo 'Yanked filename'<CR>
+    \ <cmd>echo 'Yanked filename: <c-r>+'<CR>
   nnoremap <Leader>yrp <cmd>let @+=expand("%:~:.")<CR>
-    \ <cmd>echo 'Yanked relative path'<CR>
+    \ <cmd>echo 'Yanked relative path: <c-r>+'<CR>
   nnoremap <Leader>yap <cmd>let @+=expand("%:p")<CR>
-    \ <cmd>echo 'Yanked absolute path'<CR>
+    \ <cmd>echo 'Yanked absolute path: <c-r>+'<CR>
 endif
 
 nnoremap <Leader>yaa ggyG''
